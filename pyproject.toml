@@ -1,0 +1,140 @@
+[project]
+name = "nfl_big_data_bowl_2027"
+description = "..."
+# Matches Databricks Runtime 17.3 LTS (Python 3.12.3).
+requires-python = ">=3.12, <3.13"
+dependencies = [
+    "mlflow==3.1.1",
+    "cffi==1.17.1",
+    "cloudpickle==3.1.1",
+    "numpy==1.26.4",
+    "pandas>=2.2,<2.3",
+    "pyarrow==17.0.0",
+    "scikit-learn==1.7.0",
+    "lightgbm==4.6.0",
+    "scipy==1.16.0",
+    "databricks-sdk>=0.55.0",
+    "pydantic==2.11.7",
+    "loguru==0.7.3",
+    "python-dotenv==1.1.1",
+    "dbt-databricks>=1.10.19,<1.11",
+]
+
+#deactivate
+#rm -rf .venv
+#brew uninstall libomp
+
+dynamic = ["version"]
+
+[tool.uv]
+# Without this, an unqualified `uv sync` / `uv run` silently defaults to
+# the `dev` group (pulling in databricks-connect) even when a `test`
+# environment is what's actually wanted. Empty means an unqualified
+# command installs runtime deps only — fail-safe instead of fail-silent.
+default-groups = []
+conflicts = [
+    [
+        { group = "dev" },
+        { group = "test" },
+    ],
+]
+
+[dependency-groups]
+# Interactive development against a real Databricks cluster via Databricks
+# Connect — notebooks, ipykernel, linting. NEVER installed together with
+# the `test` group below in the same environment (see note under test).
+dev = [
+    "databricks-connect>=17.3,<17.4",  # must track the DBR 17.3 LTS runtime exactly
+    "ipykernel",
+    "ruff",
+    "pre-commit",
+    "databricks-dlt",  # add only if/when a DLT pipeline is actually introduced
+]
+
+# Local/CI test execution using a real local pyspark session — NOT
+# Databricks Connect. This group is what makes "reproduce off Databricks"
+# (Phase 7) possible: tests run against a genuine local Spark, no cluster
+# required. Kept even though this project may not touch pyspark yet, to
+# match the pattern the stock-market project will need and to leave room
+# for Spark-based data loading later.
+#
+# Confirmed via the DBR 17.3 LTS release notes: powered by Apache Spark
+# 4.0.0 — pinned to match exactly.
+test = [
+    "pyspark>=4.0.0,<4.1",
+    "pytest",
+    "pytest-cov",
+]
+
+[build-system]
+requires = ["setuptools>=72.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["marvel_characters*", "citibike*", "utils*"]
+
+[tool.setuptools.dynamic]
+version = { file = "version.txt" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+    "ci_exclude: Tests excluded from CI/CD pipeline",
+    "requires_spark: Tests requiring a local pyspark session (test group only)",
+]
+addopts = [
+    "--cov=src",
+    "--cov-report=term",
+    "--cov-report=xml:coverage.xml",
+]
+
+[tool.ruff]
+line-length = 120
+lint.select = [
+    "F",    # pyflakes rules
+    "E",    # pycodestyle error rules
+    "W",    # pycodestyle warning rules
+    "B",    # flake8-bugbear rules
+    "I",    # isort rules
+    "UP",   # pyupgrade rules
+    "SIM",  # flake8-simplify rules
+    "ERA",  # eradicate rules
+    "C",    # pylint convention rules
+    "D",    # pydocstyle rules
+    "ANN",  # flake8-annotations rules
+]
+lint.ignore = [
+    "D107", # Missing docstring in `__init__`
+    "D203", # incorrect-blank-line-before-class
+    "D213", # multi-line-summary-second-line
+    "E501", # line-too-long
+    "C901", # too complex
+    "ERA001", # commented out code
+    "D100", # missing docstring
+]
+
+[tool.ruff.format]
+indent-style = "space"
+docstring-code-format = true
+
+# NOTE: If Python fails with `ModuleNotFoundError: No module named '_lzma'`,
+# the pyenv Python installation was likely built without LZMA support.
+# On macOS, install the `xz` dependency and rebuild Python:
+#
+#   brew install xz
+#   pyenv uninstall 3.12.3
+#   PYTHON_CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl@3)" \
+#   LDFLAGS="-L$(brew --prefix xz)/lib" \
+#   CPPFLAGS="-I$(brew --prefix xz)/include" \
+#   pyenv install 3.12.3
+#
+# Then recreate the uv environment:
+#
+#   rm -rf .venv
+#   uv sync --no-default-groups --group dev
+#
+# Verify with:
+#
+#   uv run python -c "import lzma; print('lzma OK')"

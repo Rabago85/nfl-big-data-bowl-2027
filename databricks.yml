@@ -1,0 +1,55 @@
+# This is a Declarative Automation Bundle definition for nfl_big_data_bowl_2027.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: nfl_big_data_bowl_2027
+  uuid: afbce7f5-0843-456a-9883-58486aa6e0ec
+
+include:
+  - resources/*.yml
+
+# Variable declarations. These variables are assigned in the dev/prod targets below.
+variables:
+  catalog:
+    description: The catalog to use
+  schema:
+    description: The schema to use
+
+targets:
+  dev:
+    # The default target uses 'mode: development' to create a development copy.
+    # - Deployed resources get prefixed with '[dev my_user_name]'
+    # - Any job schedules and triggers are paused by default.
+    # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-7405612474112507.7.azuredatabricks.net
+    variables:
+      catalog: hive_metastore
+      schema: dev
+    presets:
+      artifacts_dynamic_version: true
+  test:
+    mode: production
+    workspace:
+      host: https://adb-7405615117368588.8.azuredatabricks.net
+      # We explicitly deploy to /Workspace/Users/andrewswill85_gmail.com#ext#@andrewswill85gmail.onmicrosoft.com to make sure we only have a single copy.
+      root_path: /Workspace/Shared/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: hive_metastore
+      schema: prod
+    permissions:
+      - user_name: andrewswill85_gmail.com#ext#@andrewswill85gmail.onmicrosoft.com
+        level: CAN_MANAGE
+  prod:
+    mode: production
+    workspace:
+      host: https://adb-7405618890210613.13.azuredatabricks.net
+      # We explicitly deploy to /Workspace/Users/andrewswill85_gmail.com#ext#@andrewswill85gmail.onmicrosoft.com to make sure we only have a single copy.
+      root_path: /Workspace/Shared/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: hive_metastore
+      schema: prod
+    permissions:
+      - user_name: andrewswill85_gmail.com#ext#@andrewswill85gmail.onmicrosoft.com
+        level: CAN_MANAGE

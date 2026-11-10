@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: silver_game_tracking
+    description: >
+      Grain: one frame = (game_id, play_id, nfl_id, time), all three seasons (cohort players only, no ball).
+      season comes from the source file name; event is lower-cased. Exact duplicate frames dropped.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: [game_id, play_id, nfl_id, time]
+          config: {severity: error, tags: [silver_game_tracking]}
+      - dbt_utils.expression_is_true:
+          expression: "season = try_cast(substr(cast(game_id as string), 1, 4) as int) - case when try_cast(substr(cast(game_id as string), 5, 2) as int) < 3 then 1 else 0 end"
+          config: {severity: error, tags: [silver_game_tracking]}
+    columns:
+      - name: season
+        data_tests:
+          - not_null: {config: {severity: error, tags: [silver_game_tracking]}}
+          - dbt_utils.accepted_range: {min_value: 2023, max_value: 2025, config: {severity: error, tags: [silver_game_tracking]}}
+      - name: game_id
+        data_tests:
+          - not_null: {config: {severity: error, tags: [silver_game_tracking]}}
+          - relationships: {to: ref('silver_games'), field: game_id, config: {severity: error, tags: [silver_game_tracking]}}
+      - name: play_id
+        data_tests:
+          - not_null: {config: {severity: error, tags: [silver_game_tracking]}}
+      - name: nfl_id
+        data_tests:
+          - not_null: {config: {severity: error, tags: [silver_game_tracking]}}
+          - relationships: {to: ref('silver_players'), field: nfl_id, config: {severity: error, tags: [silver_game_tracking]}}
+      - name: time
+        data_tests:
+          - not_null: {config: {severity: error, tags: [silver_game_tracking]}}
+      - name: x
+        data_tests: [{within_thresholds: {threshold: field_x, config: {severity: warn, tags: [B14]}}}]
+      - name: y
+        data_tests: [{within_thresholds: {threshold: field_y, config: {severity: warn, tags: [B14]}}}]
+      - name: s
+        data_tests: [{within_thresholds: {threshold: speed, config: {severity: warn, tags: [B14]}}}]
+      - name: o
+        data_tests: [{within_thresholds: {threshold: angle, config: {severity: warn, tags: [B14]}}}]
+      - name: dir
+        data_tests: [{within_thresholds: {threshold: angle, config: {severity: warn, tags: [B14]}}}]
+      - name: event
+        data_tests:
+          - accepted_values_var: {key: event, config: {severity: warn, tags: [silver_game_tracking]}}

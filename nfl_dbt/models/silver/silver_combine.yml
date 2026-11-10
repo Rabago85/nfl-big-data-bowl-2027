@@ -1,0 +1,74 @@
+version: 2
+
+models:
+  - name: silver_combine_attempts
+    description: "Grain: one drill attempt EVENT = one event_id (6,310 expected). Carries the resolved attempt number and the duplicate-resolution decision for the 9 duplicate (nfl_id, drill_name, attempt) combinations."
+    data_tests:
+      - row_count_matches:
+          expected_key: combine_attempts
+          config: {severity: warn, tags: [silver_combine_attempts]}
+    columns:
+      - name: event_id
+        data_tests:
+          - unique: {config: {severity: error, tags: [silver_combine_attempts]}}
+          - not_null: {config: {severity: error, tags: [silver_combine_attempts]}}
+      - name: nfl_id
+        data_tests:
+          - not_null: {config: {severity: error, tags: [silver_combine_attempts]}}
+          - relationships: {to: ref('silver_players'), field: nfl_id, config: {severity: error, tags: [silver_combine_attempts]}}
+      - name: n_player_ids
+        data_tests:
+          - accepted_values: {values: [1], quote: false, config: {severity: error, tags: [silver_combine_attempts]}}
+      - name: n_distinct_nfl_ids
+        data_tests:
+          - accepted_values: {values: [1], quote: false, config: {severity: warn, tags: [silver_combine_attempts]}}
+      - name: n_distinct_attempt_keys
+        data_tests:
+          - accepted_values: {values: [1], quote: false, config: {severity: error, tags: [silver_combine_attempts]}}
+      - name: frames_player
+        data_tests:
+          - dbt_utils.accepted_range: {min_value: 1, config: {severity: error, tags: [silver_combine_attempts]}}
+      - name: duplicate_resolution
+        data_tests:
+          - accepted_values:
+              values: [none, merged, renumbered, renumbered_and_merged, retained_distinct]
+              config: {severity: error, tags: [silver_combine_attempts]}
+
+  - name: silver_combine_tracking
+    description: "Grain: one frame = (event_id, entity_type, time). Player and ball rows; ball rows carry the player's nfl_id. attempt_raw is the source attempt; use silver_combine_attempts for the resolved attempt."
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: [event_id, entity_type, time]
+          config: {severity: error, tags: [silver_combine_tracking]}
+      - dbt_utils.expression_is_true:
+          expression: "entity_type <> 'PLAYER' or nfl_id is not null"
+          config: {severity: error, tags: [silver_combine_tracking]}
+    columns:
+      - name: event_id
+        data_tests:
+          - not_null: {config: {severity: error, tags: [silver_combine_tracking]}}
+          - relationships: {to: ref('silver_combine_attempts'), field: event_id, config: {severity: error, tags: [silver_combine_tracking]}}
+      - name: entity_type
+        data_tests:
+          - not_null: {config: {severity: error, tags: [silver_combine_tracking]}}
+          - accepted_values: {values: [PLAYER, BALL], config: {severity: error, tags: [silver_combine_tracking]}}
+      - name: nfl_id
+        data_tests:
+          - relationships: {to: ref('silver_players'), field: nfl_id, config: {severity: error, tags: [silver_combine_tracking]}}
+      - name: time
+        data_tests:
+          - not_null: {config: {severity: error, tags: [silver_combine_tracking]}}
+      - name: drill_type
+        data_tests:
+          - accepted_values_var: {key: drill_type, config: {severity: warn, tags: [silver_combine_tracking]}}
+      - name: drill_name
+        data_tests:
+          - accepted_values_var: {key: drill_name, config: {severity: warn, tags: [silver_combine_tracking]}}
+      - name: x
+        data_tests: [{within_thresholds: {threshold: field_x, config: {severity: warn, tags: [B14]}}}]
+      - name: y
+        data_tests: [{within_thresholds: {threshold: field_y, config: {severity: warn, tags: [B14]}}}]
+      - name: s
+        data_tests: [{within_thresholds: {threshold: speed, config: {severity: warn, tags: [B14]}}}]
+      - name: dir
+        data_tests: [{within_thresholds: {threshold: angle, config: {severity: warn, tags: [B14]}}}]

@@ -1,0 +1,15 @@
+version: 2
+seeds:
+  - name: coverage_assignment_map
+    description: >
+      Lookup that parses coverage_assignment / coverage_assignment_at_snap into family and side.
+      Grain: one row per distinct raw value. Starts with only NO_ASSIGNMENT; fill it from
+      diag_coverage_unmapped after the first run (the dictionary's value format was not available
+      when this was written, so nothing is guessed).
+    config:
+      column_types: {raw_value: string, coverage_family: string, coverage_side: string}
+    columns:
+      - name: raw_value
+        data_tests:
+          - unique
+          - not_null

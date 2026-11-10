@@ -1,0 +1,41 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: nfl
+    schema: bronze
+    description: Immutable bronze loads. Silver reads only from here.
+    tables:
+      - name: players_bronze
+        data_tests:
+          - dbt_utils.expression_is_true:
+              expression: "_resuced_data is null"
+              config: {severity: warn, tags: [bronze_integrity]}
+      - name: player_career_successes_bronze
+        data_tests:
+          - dbt_utils.expression_is_true:
+              expression: "_rescued_data is null"
+              config: {severity: warn, tags: [bronze_integrity]}
+      - name: combine_results_bronze
+        data_tests:
+          - dbt_utils.expression_is_true:
+              expression: "_rescued_data is null"
+              config: {severity: warn, tags: [bronze_integrity]}
+      - name: games_bronze
+        data_tests:
+          - dbt_utils.expression_is_true:
+              expression: "_rescued_data is null"
+              config: {severity: warn, tags: [bronze_integrity]}
+      - name: combine_tracking_bronze
+        data_tests:
+          - dbt_utils.expression_is_true:
+              expression: "_rescued_data is null"
+              config: {severity: warn, tags: [bronze_integrity]}
+      - name: game_tracking_bronze
+        data_tests:
+          - dbt_utils.expression_is_true:
+              expression: "_rescued_data is null"
+              config: {severity: warn, tags: [bronze_integrity]}
+      # player_play_bronze has no _rescued_data column (its INSERT selects explicit casts), so
+      # malformed rows are invisible at the source; silver_player_play parse-integrity tests cover it.
+      - name: player_play_bronze

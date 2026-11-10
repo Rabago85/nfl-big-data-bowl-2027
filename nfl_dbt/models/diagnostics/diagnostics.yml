@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: diag_game_tracking_gaps
+    description: "Grain: one irregular interval in game tracking (sequence + gap). B6."
+  - name: diag_play_column_grain
+    description: "Grain: one row per player_play column; share of plays where the column is constant across the play's rows. B2, O3."
+  - name: diag_role_column_population
+    description: "Grain: (column, side, lined_up_position); share of rows populated. B4, O3."
+  - name: diag_rows_per_play
+    description: "Grain: (metric, bucket); rows per play and opposing cohort pairs per play by role matchup. O2."
+  - name: diag_position_disagreement
+    description: "Grain: one row per player; combine_position vs nfl_position vs modal lined_up_position. B11."
+  - name: diag_missing_cohort_players
+    description: "Grain: one row per cohort player with no game tracking. B10."
+  - name: diag_career_snaps_reconciliation
+    description: "Grain: one row per player; non-preseason player_play rows vs career off+def snaps. B9."
+  - name: diag_preseason_share
+    description: "Grain: one row per nfl_position; share of player_play rows that are preseason. O6."
+  - name: diag_combine_duplicate_events
+    description: "Grain: one row per event_id in a duplicate attempt combination, with the rule applied."
+  - name: diag_value_profiles
+    description: "Grain: (source_column, value); distinct values and counts for categorical columns. O7, accepted lists."
+  - name: diag_coverage_unmapped
+    description: "Grain: (source_column, raw_value); coverage values missing from the coverage_assignment_map seed."
+  - name: diag_epa_wpa_sign
+    description: "Grain: (analysis, group_value); EPA perspective check. B3."
+  - name: diag_tracking_summary
+    description: "Grain: one row per season; ranges and sign checks for game tracking. B12, B13, B14."
+  - name: diag_tracking_orientation
+    description: "Grain: (play_direction, side); position and angle at ball_snap. O4."
+  - name: diag_sequence_events
+    description: "Grain: one row per season; share of sequences with each key event. O5."
+  - name: diag_tracking_coverage
+    description: "Grain: (season, side); share of player_play rows that have tracking frames."
+  - name: diag_bronze_row_counts
+    description: "Grain: one row per table or slice; bronze vs silver vs expected row counts."

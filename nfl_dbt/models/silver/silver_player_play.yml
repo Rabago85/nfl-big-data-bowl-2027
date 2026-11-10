@@ -1,0 +1,108 @@
+version: 2
+
+models:
+  - name: silver_player_play
+    description: >
+      Grain: one row per player-play = (game_id, play_id, nfl_id). The most important silver model.
+      Cohort players only. pass_result empty strings are NULL. Typo column renamed to
+      visitor_team_win_probability_added. side derived from team_abbr vs possession_team.
+      coverage_family/side come from the coverage_assignment_map seed. Preseason is not filtered.
+    data_tests:
+      - row_count_matches:
+          expected_key: player_play
+          config: {severity: warn, tags: [B1]}
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: [game_id, play_id, nfl_id]
+          config: {severity: error, tags: [B1]}
+      # B2 constancy: core play-level columns (error), then the rest (warn)
+      - constant_within_group:
+          group_by: [game_id, play_id]
+          columns: [down, yards_to_go, quarter, possession_team, yardline_side, yardline_number, game_clock, pre_snap_home_score, pre_snap_visitor_score, play_direction, pre_snap_home_team_win_probability, pre_snap_visitor_team_win_probability, home_team_win_probability_added, visitor_team_win_probability_added, expected_points_added, expected_points, play_description]
+          config: {severity: error, tags: [B2]}
+      - constant_within_group:
+          group_by: [game_id, play_id]
+          columns: [offense_formation, receiver_alignment, pass_result, pass_length, play_nullified_by_penalty, penalty_yards, pre_penalty_yards_gained, yards_gained, team_coverage_man_zone, team_coverage_type]
+          config: {severity: warn, tags: [B2]}
+      # B4 null contracts (warn). Direction follows the observed fixture (game 2024122906, play 2708):
+      # pass-block metrics populated on offense, null on defense; pass-rush metrics the reverse.
+      - dbt_utils.expression_is_true:
+          expression: "dropback_duration is null and extended_sack_allowed is null and pass_rushers_encountered is null and peak_pressure_probability_allowed is null and pressure_allowed is null and sack_allowed is null and time_to_pressure_allowed is null"
+          config: {where: "side = 'DEFENSE'", severity: warn, tags: [B4]}
+      - dbt_utils.expression_is_true:
+          expression: "blitzing is null and player_get_off is null and time_to_pressure is null and time_to_qb_hurry is null"
+          config: {where: "side = 'OFFENSE'", severity: warn, tags: [B4]}
+      - dbt_utils.expression_is_true:
+          expression: "in_motion_at_ball_snap is null"
+          config: {where: "side = 'DEFENSE'", severity: warn, tags: [B4]}
+      - dbt_utils.expression_is_true:
+          expression: "cushion is null"
+          config: {where: "side = 'OFFENSE'", severity: warn, tags: [B4]}
+      # win probability relationships
+      - dbt_utils.expression_is_true:
+          expression: "pre_snap_home_team_win_probability is null or pre_snap_visitor_team_win_probability is null or abs(pre_snap_home_team_win_probability + pre_snap_visitor_team_win_probability - 1) <= {{ var('thresholds')['wp_tolerance'] }}"
+          config: {severity: warn, tags: [silver_player_play]}
+      - dbt_utils.expression_is_true:
+          expression: "home_team_win_probability_added is null or visitor_team_win_probability_added is null or abs(home_team_win_probability_added + visitor_team_win_probability_added) <= {{ var('thresholds')['wp_tolerance'] }}"
+          config: {severity: warn, tags: [silver_player_play]}
+      # game_clock: MM:SS and <= 15:00
+      - dbt_utils.expression_is_true:
+          expression: "game_clock is null or (game_clock rlike '^[0-9]{1,2}:[0-5][0-9]$' and try_cast(split(game_clock, ':')[0] as int) * 60 + try_cast(split(game_clock, ':')[1] as int) <= 900)"
+          config: {severity: error, tags: [silver_player_play]}
+    columns:
+      - name: game_id
+        data_tests:
+          - not_null: {config: {severity: error, tags: [B1]}}
+          - relationships: {to: ref('silver_games'), field: game_id, config: {severity: error, tags: [B1]}}
+      - name: play_id
+        data_tests:
+          - not_null: {config: {severity: error, tags: [B1]}}
+      - name: nfl_id
+        data_tests:
+          - not_null: {config: {severity: error, tags: [B1, parse_integrity]}}
+          - relationships: {to: ref('silver_players'), field: nfl_id, config: {severity: error, tags: [B1, parse_integrity]}}
+      - name: team_abbr
+        data_tests:
+          - not_null: {config: {severity: error, tags: [B5, parse_integrity]}}
+          - dbt_utils.expression_is_true: {expression: "team_abbr rlike '^[A-Z]{2,3}$'", config: {severity: error, tags: [parse_integrity]}}
+      - name: possession_team
+        data_tests:
+          - dbt_utils.expression_is_true: {expression: "possession_team is null or possession_team rlike '^[A-Z]{2,3}$'", config: {severity: error, tags: [parse_integrity]}}
+      - name: yardline_side
+        data_tests:
+          - dbt_utils.expression_is_true: {expression: "yardline_side is null or yardline_side rlike '^[A-Z]{2,3}$'", config: {severity: warn, tags: [parse_integrity]}}
+      - name: side
+        data_tests:
+          - not_null: {config: {severity: error, tags: [B5]}}
+          - accepted_values: {values: [OFFENSE, DEFENSE], config: {severity: error, tags: [B5]}}
+      - name: lined_up_position
+        data_tests:
+          - accepted_values_var: {key: lined_up_position, config: {severity: warn, tags: [silver_player_play]}}
+          - dbt_utils.expression_is_true: {expression: "lined_up_position is null or lined_up_position rlike '^[A-Z0-9_]+$'", config: {severity: warn, tags: [parse_integrity]}}
+      - name: quarter
+        data_tests:
+          - dbt_utils.accepted_range: {min_value: 1, max_value: 5, config: {severity: error, tags: [silver_player_play]}}
+      - name: down
+        data_tests:
+          - dbt_utils.accepted_range: {min_value: 1, max_value: 4, config: {severity: error, tags: [silver_player_play]}}
+      - name: yardline_number
+        data_tests:
+          - dbt_utils.accepted_range: {min_value: 1, max_value: 50, config: {severity: error, tags: [silver_player_play]}}
+      - name: pre_snap_home_team_win_probability
+        data_tests:
+          - dbt_utils.accepted_range: {min_value: 0, max_value: 1, config: {severity: error, tags: [silver_player_play]}}
+      - name: pre_snap_visitor_team_win_probability
+        data_tests:
+          - dbt_utils.accepted_range: {min_value: 0, max_value: 1, config: {severity: error, tags: [silver_player_play]}}
+      - name: home_team_win_probability_added
+        data_tests:
+          - dbt_utils.accepted_range: {min_value: -1, max_value: 1, config: {severity: warn, tags: [silver_player_play]}}
+      - name: visitor_team_win_probability_added
+        data_tests:
+          - dbt_utils.accepted_range: {min_value: -1, max_value: 1, config: {severity: warn, tags: [silver_player_play]}}
+      - name: pass_result
+        description: "Empty strings in bronze are NULL here. Accepted: C, I, S, IN, R, or NULL on non-pass plays."
+        data_tests:
+          - accepted_values: {values: [C, I, S, IN, R], config: {severity: error, tags: [silver_player_play]}}
+      - name: play_nullified_by_penalty
+        data_tests:
+          - accepted_values: {values: [Y, N], config: {severity: error, tags: [silver_player_play]}}

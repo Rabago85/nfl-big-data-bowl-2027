@@ -1,0 +1,139 @@
+version: 2
+
+models:
+  - name: silver_games
+    description: "Grain: one row per game (game_id). Cleaned and typed games; preseason flagged (is_preseason), never filtered. game_date derived from the YYYYMMDD## game_id."
+    data_tests:
+      - row_count_matches:
+          expected_key: games
+          config: {severity: warn, tags: [O1]}
+      - dbt_utils.expression_is_true:
+          expression: "home_team_abbr <> visitor_team_abbr"
+          config: {severity: error, tags: [silver_games]}
+      - dbt_utils.expression_is_true:
+          expression: "game_date is not null and (year(game_date) - case when month(game_date) < 3 then 1 else 0 end) = season"
+          config: {severity: warn, tags: [silver_games]}
+    columns:
+      - name: game_id
+        data_tests:
+          - unique: {config: {severity: error, tags: [silver_games]}}
+          - not_null: {config: {severity: error, tags: [silver_games]}}
+      - name: game_key
+        data_tests:
+          - unique: {config: {severity: error, tags: [silver_games]}}
+          - not_null: {config: {severity: error, tags: [silver_games]}}
+      - name: season
+        data_tests:
+          - dbt_utils.accepted_range: {min_value: 2023, max_value: 2025, config: {severity: error, tags: [silver_games]}}
+      - name: season_type
+        data_tests:
+          - accepted_values_var: {key: season_type, config: {severity: warn, tags: [O1]}}
+      - name: is_preseason
+        data_tests:
+          - not_null: {config: {severity: error, tags: [O1]}}
+
+  - name: silver_players
+    description: "Grain: one row per cohort player (nfl_id). Round and pick are null for undrafted players."
+    data_tests:
+      - row_count_matches:
+          expected_key: players
+          config: {severity: warn, tags: [B1]}
+      - dbt_utils.expression_is_true:
+          expression: "(draft_round is null) = (draft_overall_pick is null) and (draft_round is null) = (draft_pick_within_round is null)"
+          config: {severity: error, tags: [silver_players]}
+      - dbt_utils.expression_is_true:
+          expression: "birth_date is null or draft_year is null or (datediff(make_date(draft_year, 4, 25), birth_date) / 365.25) between {{ var('thresholds')['age_at_draft_min'] }} and {{ var('thresholds')['age_at_draft_max'] }}"
+          config: {severity: warn, tags: [silver_players]}
+    columns:
+      - name: nfl_id
+        data_tests:
+          - unique: {config: {severity: error, tags: [B1]}}
+          - not_null: {config: {severity: error, tags: [B1]}}
+      - name: draft_year
+        data_tests:
+          - not_null: {config: {severity: error, tags: [silver_players]}}
+          - dbt_utils.accepted_range: {min_value: 2023, max_value: 2025, config: {severity: error, tags: [silver_players]}}
+      - name: draft_round
+        data_tests:
+          - dbt_utils.accepted_range: {min_value: 1, max_value: 7, config: {severity: error, tags: [silver_players]}}
+      - name: nfl_position
+        data_tests:
+          - accepted_values_var: {key: nfl_position, config: {severity: warn, tags: [silver_players]}}
+
+  - name: silver_combine_results
+    description: "Grain: one row per player (nfl_id). Opt-out nulls preserved, never imputed."
+    data_tests:
+      - row_count_matches:
+          expected_key: combine_results
+          config: {severity: warn, tags: [silver_combine_results]}
+      - dbt_utils.expression_is_true:
+          expression: "ten_yd_split is null or forty is null or ten_yd_split < forty"
+          config: {severity: warn, tags: [silver_combine_results]}
+    columns:
+      - name: nfl_id
+        data_tests:
+          - unique: {config: {severity: error, tags: [silver_combine_results]}}
+          - not_null: {config: {severity: error, tags: [silver_combine_results]}}
+          - relationships: {to: ref('silver_players'), field: nfl_id, config: {severity: error, tags: [silver_combine_results]}}
+      - name: combine_height
+        data_tests: [{within_thresholds: {threshold: height, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: combine_weight
+        data_tests: [{within_thresholds: {threshold: weight, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: hand_size
+        data_tests: [{within_thresholds: {threshold: hand_size, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: arm_length
+        data_tests: [{within_thresholds: {threshold: arm_length, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: wing_span
+        data_tests: [{within_thresholds: {threshold: wing_span, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: ten_yd_split
+        data_tests: [{within_thresholds: {threshold: ten_yd_split, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: forty
+        data_tests: [{within_thresholds: {threshold: forty, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: vertical
+        data_tests: [{within_thresholds: {threshold: vertical, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: broad_jump
+        data_tests: [{within_thresholds: {threshold: broad_jump, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: three_cone
+        data_tests: [{within_thresholds: {threshold: three_cone, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: short_shuttle
+        data_tests: [{within_thresholds: {threshold: short_shuttle, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: bench_reps
+        data_tests: [{within_thresholds: {threshold: bench_reps, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: ngs_athleticism_score
+        data_tests: [{within_thresholds: {threshold: ngs_score, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: ngs_college_production_score
+        data_tests: [{within_thresholds: {threshold: ngs_score, config: {severity: warn, tags: [silver_ranges]}}}]
+      - name: ngs_final_score
+        data_tests: [{within_thresholds: {threshold: ngs_score, config: {severity: warn, tags: [silver_ranges]}}}]
+
+  - name: silver_player_career_successes
+    description: "Grain: one row per player (nfl_id). Career snaps are regular season plus playoffs."
+    data_tests:
+      - row_count_matches:
+          expected_key: player_career_successes
+          config: {severity: warn, tags: [silver_career]}
+      - dbt_utils.expression_is_true:
+          expression: "career_games_started is null or career_games_active is null or career_games_started <= career_games_active"
+          config: {severity: error, tags: [silver_career]}
+    columns:
+      - name: nfl_id
+        data_tests:
+          - unique: {config: {severity: error, tags: [silver_career]}}
+          - not_null: {config: {severity: error, tags: [silver_career]}}
+          - relationships: {to: ref('silver_players'), field: nfl_id, config: {severity: error, tags: [silver_career]}}
+      - name: career_offensive_snaps
+        data_tests: [{dbt_utils.accepted_range: {min_value: 0, config: {severity: error, tags: [silver_career]}}}]
+      - name: career_defensive_snaps
+        data_tests: [{dbt_utils.accepted_range: {min_value: 0, config: {severity: error, tags: [silver_career]}}}]
+      - name: career_special_teams_snaps
+        data_tests: [{dbt_utils.accepted_range: {min_value: 0, config: {severity: error, tags: [silver_career]}}}]
+      - name: career_games_active
+        data_tests: [{dbt_utils.accepted_range: {min_value: 0, config: {severity: error, tags: [silver_career]}}}]
+      - name: career_games_started
+        data_tests: [{dbt_utils.accepted_range: {min_value: 0, config: {severity: error, tags: [silver_career]}}}]
+      - name: ap_all_pro_1st_team
+        data_tests: [{dbt_utils.accepted_range: {min_value: 0, config: {severity: error, tags: [silver_career]}}}]
+      - name: ap_all_pro_2nd_team
+        data_tests: [{dbt_utils.accepted_range: {min_value: 0, config: {severity: error, tags: [silver_career]}}}]
+      - name: pro_bowl_original_ballot
+        data_tests: [{dbt_utils.accepted_range: {min_value: 0, config: {severity: error, tags: [silver_career]}}}]

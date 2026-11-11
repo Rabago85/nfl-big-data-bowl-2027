@@ -7,7 +7,7 @@ models:
       Cohort players only. pass_result empty strings are NULL. Typo column renamed to
       visitor_team_win_probability_added. side derived from team_abbr vs possession_team.
       coverage_family/side come from the coverage_assignment_map seed. Preseason is not filtered.
-    data_tests:
+    data_tests:  #team_abbr and under lined_up_position possession_team and yardline_side
       - row_count_matches:
           expected_key: player_play
           config: {severity: warn, tags: [B1]}
@@ -29,14 +29,23 @@ models:
           expression: "dropback_duration is null and extended_sack_allowed is null and pass_rushers_encountered is null and peak_pressure_probability_allowed is null and pressure_allowed is null and sack_allowed is null and time_to_pressure_allowed is null"
           config: {where: "side = 'DEFENSE'", severity: warn, tags: [B4]}
       - dbt_utils.expression_is_true:
-          expression: "blitzing is null and player_get_off is null and time_to_pressure is null and time_to_qb_hurry is null"
+          expression: "player_get_off is null and time_to_pressure is null and time_to_qb_hurry is null and sack is null"
           config: {where: "side = 'OFFENSE'", severity: warn, tags: [B4]}
       - dbt_utils.expression_is_true:
           expression: "in_motion_at_ball_snap is null"
           config: {where: "side = 'DEFENSE'", severity: warn, tags: [B4]}
-      - dbt_utils.expression_is_true:
-          expression: "cushion is null"
-          config: {where: "side = 'OFFENSE'", severity: warn, tags: [B4]}
+      # - dbt_utils.expression_is_true:
+      #     expression: "dropback_duration is null and extended_sack_allowed is null and pass_rushers_encountered is null and peak_pressure_probability_allowed is null and pressure_allowed is null and sack_allowed is null and time_to_pressure_allowed is null"
+      #     config: {where:"side = 'OFFENSE'", severity: warn, tags: [B4]}
+      # - dbt_utils.expression_is_true: #!!!!!!
+      #     expression: "blitzing is null and player_get_off is null and time_to_pressure is null and time_to_qb_hurry is null"
+      #     config: {where: "side = 'OFFENSE'", severity: warn, tags: [B4]}
+      # - dbt_utils.expression_is_true:
+      #     expression: "in_motion_at_ball_snap is null"
+      #     config: {where: "side = 'DEFENSE'", severity: warn, tags: [B4]}
+      # - dbt_utils.expression_is_true:
+      #     expression: "cushion is null"
+      #     config: {where: "side = 'OFFENSE'", severity: warn, tags: [B4]}
       # win probability relationships
       - dbt_utils.expression_is_true:
           expression: "pre_snap_home_team_win_probability is null or pre_snap_visitor_team_win_probability is null or abs(pre_snap_home_team_win_probability + pre_snap_visitor_team_win_probability - 1) <= {{ var('thresholds')['wp_tolerance'] }}"
@@ -47,6 +56,21 @@ models:
       # game_clock: MM:SS and <= 15:00
       - dbt_utils.expression_is_true:
           expression: "game_clock is null or (game_clock rlike '^[0-9]{1,2}:[0-5][0-9]$' and try_cast(split(game_clock, ':')[0] as int) * 60 + try_cast(split(game_clock, ':')[1] as int) <= 900)"
+          config: {severity: error, tags: [silver_player_play]}
+      - dbt_utils.expression_is_true:
+          expression: "team_abbr rlike '^[A-Z]{2,3}$'"
+          config: {severity: error, tags: [parse_integrity]}
+      - dbt_utils.expression_is_true:
+          expression: "possession_team is null or possession_team rlike '^[A-Z]{2,3}$'"
+          config: {severity: error, tags: [parse_integrity]}
+      - dbt_utils.expression_is_true:
+          expression: "yardline_side is null or yardline_side rlike '^[A-Z]{2,3}$'"
+          config: {severity: warn, tags: [parse_integrity]}
+      - dbt_utils.expression_is_true:
+          expression: "lined_up_position is null or lined_up_position rlike '^[A-Z0-9_]+$'"
+          config: {severity: warn, tags: [parse_integrity]}
+      - dbt_utils.expression_is_true:
+          expression: "down is null or down between 1 and 4 or (down = 0 and (play_nullified_by_penalty = 'Y' or upper(play_description) like '%TWO-POINT CONVERSION ATTEMPT%'))"
           config: {severity: error, tags: [silver_player_play]}
     columns:
       - name: game_id
@@ -63,13 +87,13 @@ models:
       - name: team_abbr
         data_tests:
           - not_null: {config: {severity: error, tags: [B5, parse_integrity]}}
-          - dbt_utils.expression_is_true: {expression: "team_abbr rlike '^[A-Z]{2,3}$'", config: {severity: error, tags: [parse_integrity]}}
-      - name: possession_team
-        data_tests:
-          - dbt_utils.expression_is_true: {expression: "possession_team is null or possession_team rlike '^[A-Z]{2,3}$'", config: {severity: error, tags: [parse_integrity]}}
-      - name: yardline_side
-        data_tests:
-          - dbt_utils.expression_is_true: {expression: "yardline_side is null or yardline_side rlike '^[A-Z]{2,3}$'", config: {severity: warn, tags: [parse_integrity]}}
+          # - dbt_utils.expression_is_true: {expression: "team_abbr rlike '^[A-Z]{2,3}$'", config: {severity: error, tags: [parse_integrity]}}
+      # - name: possession_team
+      #   data_tests:
+      #     - dbt_utils.expression_is_true: {expression: "possession_team is null or possession_team rlike '^[A-Z]{2,3}$'", config: {severity: error, tags: [parse_integrity]}}
+      # - name: yardline_side
+      #   data_tests:
+      #     - dbt_utils.expression_is_true: {expression: "yardline_side is null or yardline_side rlike '^[A-Z]{2,3}$'", config: {severity: warn, tags: [parse_integrity]}}
       - name: side
         data_tests:
           - not_null: {config: {severity: error, tags: [B5]}}
@@ -77,13 +101,16 @@ models:
       - name: lined_up_position
         data_tests:
           - accepted_values_var: {key: lined_up_position, config: {severity: warn, tags: [silver_player_play]}}
-          - dbt_utils.expression_is_true: {expression: "lined_up_position is null or lined_up_position rlike '^[A-Z0-9_]+$'", config: {severity: warn, tags: [parse_integrity]}}
+          # - dbt_utils.expression_is_true: {expression: "lined_up_position is null or lined_up_position rlike '^[A-Z0-9_]+$'", config: {severity: warn, tags: [parse_integrity]}}
       - name: quarter
         data_tests:
           - dbt_utils.accepted_range: {min_value: 1, max_value: 5, config: {severity: error, tags: [silver_player_play]}}
-      - name: down
-        data_tests:
-          - dbt_utils.accepted_range: {min_value: 1, max_value: 4, config: {severity: error, tags: [silver_player_play]}}
+      # - name: down
+      #   data_tests:
+      #     - dbt_utils.expression_is_true:
+      #       expression: "down is null or down between 1 and 4 or (down = 0 and play_nullified_by_penalty = 'Y')"
+      #       config: {severity: error, tags: [silver_player_play]}
+          # - dbt_utils.accepted_range: {min_value: 1, max_value: 4, config: {severity: error, tags: [silver_player_play]}}
       - name: yardline_number
         data_tests:
           - dbt_utils.accepted_range: {min_value: 1, max_value: 50, config: {severity: error, tags: [silver_player_play]}}

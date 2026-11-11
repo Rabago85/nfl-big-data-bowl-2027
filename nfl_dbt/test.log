@@ -1,0 +1,637 @@
+[0m00:12:38  Running with dbt=1.10.16
+WARNING:thrift.transport.sslcompat:using legacy validation callback
+[0m00:12:38  Registered adapter: databricks=1.10.19
+[0m00:12:39  Found 25 models, 152 data tests, 1 seed, 7 sources, 845 macros
+[0m00:12:39  
+[0m00:12:39  Concurrency: 1 threads (target='dev')
+[0m00:12:39  
+[0m00:12:42  1 of 152 START test accepted_values_silver_combine_attempts_duplicate_resolution__none__merged__renumbered__renumbered_and_merged__retained_distinct  [RUN]
+[0m00:12:45  1 of 152 PASS accepted_values_silver_combine_attempts_duplicate_resolution__none__merged__renumbered__renumbered_and_merged__retained_distinct  [[32mPASS[0m in 3.58s]
+[0m00:12:45  2 of 152 START test accepted_values_silver_combine_attempts_n_distinct_attempt_keys__False__1  [RUN]
+[0m00:12:48  2 of 152 PASS accepted_values_silver_combine_attempts_n_distinct_attempt_keys__False__1  [[32mPASS[0m in 2.95s]
+[0m00:12:48  3 of 152 START test accepted_values_silver_combine_attempts_n_distinct_nfl_ids__False__1  [RUN]
+[0m00:12:51  3 of 152 PASS accepted_values_silver_combine_attempts_n_distinct_nfl_ids__False__1  [[32mPASS[0m in 2.86s]
+[0m00:12:51  4 of 152 START test accepted_values_silver_combine_attempts_n_player_ids__False__1  [RUN]
+[0m00:12:54  4 of 152 PASS accepted_values_silver_combine_attempts_n_player_ids__False__1 ... [[32mPASS[0m in 2.87s]
+[0m00:12:54  5 of 152 START test accepted_values_silver_combine_tracking_entity_type__PLAYER__BALL  [RUN]
+[0m00:12:57  5 of 152 PASS accepted_values_silver_combine_tracking_entity_type__PLAYER__BALL  [[32mPASS[0m in 3.06s]
+[0m00:12:57  6 of 152 START test accepted_values_silver_player_play_pass_result__C__I__S__IN__R  [RUN]
+[0m00:13:00  6 of 152 PASS accepted_values_silver_player_play_pass_result__C__I__S__IN__R ... [[32mPASS[0m in 3.17s]
+[0m00:13:00  7 of 152 START test accepted_values_silver_player_play_play_nullified_by_penalty__Y__N  [RUN]
+[0m00:13:04  7 of 152 PASS accepted_values_silver_player_play_play_nullified_by_penalty__Y__N  [[32mPASS[0m in 3.57s]
+[0m00:13:04  8 of 152 START test accepted_values_silver_player_play_side__OFFENSE__DEFENSE .. [RUN]
+[0m00:13:08  8 of 152 PASS accepted_values_silver_player_play_side__OFFENSE__DEFENSE ........ [[32mPASS[0m in 4.00s]
+[0m00:13:08  9 of 152 START test accepted_values_var_silver_combine_tracking_drill_name__drill_name  [RUN]
+[0m00:13:11  9 of 152 PASS accepted_values_var_silver_combine_tracking_drill_name__drill_name  [[32mPASS[0m in 3.07s]
+[0m00:13:11  10 of 152 START test accepted_values_var_silver_combine_tracking_drill_type__drill_type  [RUN]
+[0m00:13:14  10 of 152 PASS accepted_values_var_silver_combine_tracking_drill_type__drill_type  [[32mPASS[0m in 2.86s]
+[0m00:13:14  11 of 152 START test accepted_values_var_silver_game_tracking_event__event ..... [RUN]
+[0m00:13:17  11 of 152 PASS accepted_values_var_silver_game_tracking_event__event ........... [[32mPASS[0m in 2.66s]
+[0m00:13:17  12 of 152 START test accepted_values_var_silver_games_season_type__season_type . [RUN]
+[0m00:13:19  12 of 152 PASS accepted_values_var_silver_games_season_type__season_type ....... [[32mPASS[0m in 2.56s]
+[0m00:13:19  13 of 152 START test accepted_values_var_silver_player_play_lined_up_position__lined_up_position  [RUN]
+[0m00:13:22  13 of 152 PASS accepted_values_var_silver_player_play_lined_up_position__lined_up_position  [[32mPASS[0m in 2.66s]
+[0m00:13:22  14 of 152 START test accepted_values_var_silver_players_nfl_position__nfl_position  [RUN]
+[0m00:13:24  14 of 152 PASS accepted_values_var_silver_players_nfl_position__nfl_position ... [[32mPASS[0m in 2.66s]
+[0m00:13:24  15 of 152 START test b10_players_without_tracking .............................. [RUN]
+[0m00:13:27  15 of 152 PASS b10_players_without_tracking .................................... [[32mPASS[0m in 2.76s]
+[0m00:13:27  16 of 152 START test b13_combine_speed_vs_dis .................................. [RUN]
+[0m00:13:31  16 of 152 WARN 1 b13_combine_speed_vs_dis ...................................... [[33mWARN 1[0m in 3.48s]
+[0m00:13:31  17 of 152 START test b13_game_speed_vs_dis ..................................... [RUN]
+[0m00:13:37  17 of 152 PASS b13_game_speed_vs_dis ........................................... [[32mPASS[0m in 6.14s]
+[0m00:13:37  18 of 152 START test b5_player_play_teams_in_game .............................. [RUN]
+[0m00:13:41  18 of 152 PASS b5_player_play_teams_in_game .................................... [[32mPASS[0m in 3.69s]
+[0m00:13:41  19 of 152 START test b6_combine_interval_uniform ............................... [RUN]
+[0m00:13:44  19 of 152 PASS b6_combine_interval_uniform ..................................... [[32mPASS[0m in 3.06s]
+[0m00:13:44  20 of 152 START test b6_game_tracking_irregular_intervals ...................... [RUN]
+[0m00:13:46  20 of 152 PASS b6_game_tracking_irregular_intervals ............................ [[32mPASS[0m in 2.66s]
+[0m00:13:46  21 of 152 START test b7_tracking_season_vs_draft_year .......................... [RUN]
+[0m00:13:49  21 of 152 PASS b7_tracking_season_vs_draft_year ................................ [[32mPASS[0m in 3.20s]
+[0m00:13:49  22 of 152 START test b8_missing_ball_snap ...................................... [RUN]
+[0m00:13:53  22 of 152 WARN 1 b8_missing_ball_snap .......................................... [[33mWARN 1[0m in 3.12s]
+[0m00:13:53  23 of 152 START test b8_multiple_ball_snaps .................................... [RUN]
+[0m00:13:56  23 of 152 FAIL 50 b8_multiple_ball_snaps ....................................... [[31mFAIL 50[0m in 2.98s]
+[0m00:13:56  24 of 152 START test b9_player_play_rows_vs_career_snaps ....................... [RUN]
+[0m00:13:59  24 of 152 WARN 230 b9_player_play_rows_vs_career_snaps ......................... [[33mWARN 230[0m in 3.03s]
+[0m00:13:59  25 of 152 START test bronze_empty_strings_outside_pass_result .................. [RUN]
+[0m00:14:03  25 of 152 PASS bronze_empty_strings_outside_pass_result ........................ [[32mPASS[0m in 4.04s]
+[0m00:14:03  26 of 152 START test combine_attempt_key_maps_to_single_attempt_id ............. [RUN]
+[0m00:14:06  26 of 152 PASS combine_attempt_key_maps_to_single_attempt_id ................... [[32mPASS[0m in 3.05s]
+[0m00:14:06  27 of 152 START test combine_one_player_per_event .............................. [RUN]
+[0m00:14:09  27 of 152 PASS combine_one_player_per_event .................................... [[32mPASS[0m in 2.97s]
+[0m00:14:09  28 of 152 START test combine_results_draft_year_matches_players ................ [RUN]
+[0m00:14:12  28 of 152 PASS combine_results_draft_year_matches_players ...................... [[32mPASS[0m in 2.86s]
+[0m00:14:12  29 of 152 START test combine_tracking_draft_year_matches_players ............... [RUN]
+[0m00:14:15  29 of 152 PASS combine_tracking_draft_year_matches_players ..................... [[32mPASS[0m in 2.97s]
+[0m00:14:15  30 of 152 START test constant_within_group_silver_player_play_down__yards_to_go__quarter__possession_team__yardline_side__yardline_number__game_clock__pre_snap_home_score__pre_snap_visitor_score__play_direction__pre_snap_home_team_win_probability__pre_snap_visitor_team_win_probability__home_team_win_probability_added__visitor_team_win_probability_added__expected_points_added__expected_points__play_description__game_id__play_id  [RUN]
+[0m00:14:21  30 of 152 PASS constant_within_group_silver_player_play_down__yards_to_go__quarter__possession_team__yardline_side__yardline_number__game_clock__pre_snap_home_score__pre_snap_visitor_score__play_direction__pre_snap_home_team_win_probability__pre_snap_visitor_team_win_probability__home_team_win_probability_added__visitor_team_win_probability_added__expected_points_added__expected_points__play_description__game_id__play_id  [[32mPASS[0m in 6.65s]
+[0m00:14:21  31 of 152 START test constant_within_group_silver_player_play_offense_formation__receiver_alignment__pass_result__pass_length__play_nullified_by_penalty__penalty_yards__pre_penalty_yards_gained__yards_gained__team_coverage_man_zone__team_coverage_type__game_id__play_id  [RUN]
+[0m00:14:25  31 of 152 PASS constant_within_group_silver_player_play_offense_formation__receiver_alignment__pass_result__pass_length__play_nullified_by_penalty__penalty_yards__pre_penalty_yards_gained__yards_gained__team_coverage_man_zone__team_coverage_type__game_id__play_id  [[32mPASS[0m in 4.20s]
+[0m00:14:25  32 of 152 START test coverage_assignment_unmapped .............................. [RUN]
+[0m00:14:28  32 of 152 WARN 38 coverage_assignment_unmapped ................................. [[33mWARN 38[0m in 3.05s]
+[0m00:14:28  33 of 152 START test dbt_utils_accepted_range_silver_combine_attempts_frames_player__1  [RUN]
+[0m00:14:31  33 of 152 PASS dbt_utils_accepted_range_silver_combine_attempts_frames_player__1  [[32mPASS[0m in 2.67s]
+[0m00:14:31  34 of 152 START test dbt_utils_accepted_range_silver_game_tracking_season__2025__2023  [RUN]
+[0m00:14:34  34 of 152 PASS dbt_utils_accepted_range_silver_game_tracking_season__2025__2023  [[32mPASS[0m in 3.17s]
+[0m00:14:34  35 of 152 START test dbt_utils_accepted_range_silver_games_season__2025__2023 .. [RUN]
+[0m00:14:37  35 of 152 PASS dbt_utils_accepted_range_silver_games_season__2025__2023 ........ [[32mPASS[0m in 2.96s]
+[0m00:14:37  36 of 152 START test dbt_utils_accepted_range_silver_player_career_successes_ap_all_pro_1st_team__0  [RUN]
+[0m00:14:40  36 of 152 PASS dbt_utils_accepted_range_silver_player_career_successes_ap_all_pro_1st_team__0  [[32mPASS[0m in 2.57s]
+[0m00:14:40  37 of 152 START test dbt_utils_accepted_range_silver_player_career_successes_ap_all_pro_2nd_team__0  [RUN]
+[0m00:14:43  37 of 152 PASS dbt_utils_accepted_range_silver_player_career_successes_ap_all_pro_2nd_team__0  [[32mPASS[0m in 2.75s]
+[0m00:14:43  38 of 152 START test dbt_utils_accepted_range_silver_player_career_successes_career_defensive_snaps__0  [RUN]
+[0m00:14:45  38 of 152 PASS dbt_utils_accepted_range_silver_player_career_successes_career_defensive_snaps__0  [[32mPASS[0m in 2.86s]
+[0m00:14:45  39 of 152 START test dbt_utils_accepted_range_silver_player_career_successes_career_games_active__0  [RUN]
+[0m00:14:48  39 of 152 PASS dbt_utils_accepted_range_silver_player_career_successes_career_games_active__0  [[32mPASS[0m in 2.67s]
+[0m00:14:48  40 of 152 START test dbt_utils_accepted_range_silver_player_career_successes_career_games_started__0  [RUN]
+[0m00:14:51  40 of 152 PASS dbt_utils_accepted_range_silver_player_career_successes_career_games_started__0  [[32mPASS[0m in 2.65s]
+[0m00:14:51  41 of 152 START test dbt_utils_accepted_range_silver_player_career_successes_career_offensive_snaps__0  [RUN]
+[0m00:14:53  41 of 152 PASS dbt_utils_accepted_range_silver_player_career_successes_career_offensive_snaps__0  [[32mPASS[0m in 2.64s]
+[0m00:14:53  42 of 152 START test dbt_utils_accepted_range_silver_player_career_successes_career_special_teams_snaps__0  [RUN]
+[0m00:14:56  42 of 152 PASS dbt_utils_accepted_range_silver_player_career_successes_career_special_teams_snaps__0  [[32mPASS[0m in 2.57s]
+[0m00:14:56  43 of 152 START test dbt_utils_accepted_range_silver_player_career_successes_pro_bowl_original_ballot__0  [RUN]
+[0m00:14:59  43 of 152 PASS dbt_utils_accepted_range_silver_player_career_successes_pro_bowl_original_ballot__0  [[32mPASS[0m in 2.66s]
+[0m00:14:59  44 of 152 START test dbt_utils_accepted_range_silver_player_play_down__4__1 .... [RUN]
+[0m00:15:02  44 of 152 FAIL 961 dbt_utils_accepted_range_silver_player_play_down__4__1 ...... [[31mFAIL 961[0m in 3.37s]
+[0m00:15:02  45 of 152 START test dbt_utils_accepted_range_silver_player_play_home_team_win_probability_added__1___1  [RUN]
+[0m00:15:05  45 of 152 PASS dbt_utils_accepted_range_silver_player_play_home_team_win_probability_added__1___1  [[32mPASS[0m in 3.19s]
+[0m00:15:05  46 of 152 START test dbt_utils_accepted_range_silver_player_play_pre_snap_home_team_win_probability__1__0  [RUN]
+[0m00:15:08  46 of 152 PASS dbt_utils_accepted_range_silver_player_play_pre_snap_home_team_win_probability__1__0  [[32mPASS[0m in 3.16s]
+[0m00:15:08  47 of 152 START test dbt_utils_accepted_range_silver_player_play_pre_snap_visitor_team_win_probability__1__0  [RUN]
+[0m00:15:11  47 of 152 PASS dbt_utils_accepted_range_silver_player_play_pre_snap_visitor_team_win_probability__1__0  [[32mPASS[0m in 2.87s]
+[0m00:15:11  48 of 152 START test dbt_utils_accepted_range_silver_player_play_quarter__5__1 . [RUN]
+[0m00:15:15  48 of 152 PASS dbt_utils_accepted_range_silver_player_play_quarter__5__1 ....... [[32mPASS[0m in 3.44s]
+[0m00:15:15  49 of 152 START test dbt_utils_accepted_range_silver_player_play_visitor_team_win_probability_added__1___1  [RUN]
+[0m00:15:18  49 of 152 PASS dbt_utils_accepted_range_silver_player_play_visitor_team_win_probability_added__1___1  [[32mPASS[0m in 2.89s]
+[0m00:15:18  50 of 152 START test dbt_utils_accepted_range_silver_player_play_yardline_number__50__1  [RUN]
+[0m00:15:20  50 of 152 PASS dbt_utils_accepted_range_silver_player_play_yardline_number__50__1  [[32mPASS[0m in 2.68s]
+[0m00:15:20  51 of 152 START test dbt_utils_accepted_range_silver_players_draft_round__7__1 . [RUN]
+[0m00:15:23  51 of 152 PASS dbt_utils_accepted_range_silver_players_draft_round__7__1 ....... [[32mPASS[0m in 2.54s]
+[0m00:15:23  52 of 152 START test dbt_utils_accepted_range_silver_players_draft_year__2025__2023  [RUN]
+[0m00:15:26  52 of 152 PASS dbt_utils_accepted_range_silver_players_draft_year__2025__2023 .. [[32mPASS[0m in 2.75s]
+[0m00:15:26  53 of 152 START test dbt_utils_expression_is_true_silver_combine_results_ten_yd_split_is_null_or_forty_is_null_or_ten_yd_split_forty  [RUN]
+[0m00:15:28  53 of 152 PASS dbt_utils_expression_is_true_silver_combine_results_ten_yd_split_is_null_or_forty_is_null_or_ten_yd_split_forty  [[32mPASS[0m in 2.76s]
+[0m00:15:28  54 of 152 START test dbt_utils_expression_is_true_silver_combine_tracking_entity_type_PLAYER_or_nfl_id_is_not_null  [RUN]
+[0m00:15:31  54 of 152 PASS dbt_utils_expression_is_true_silver_combine_tracking_entity_type_PLAYER_or_nfl_id_is_not_null  [[32mPASS[0m in 2.55s]
+[0m00:15:31  55 of 152 START test dbt_utils_expression_is_true_silver_game_tracking_season_try_cast_substr_cast_game_id_as_string_1_4_as_int_case_when_try_cast_substr_cast_game_id_as_string_5_2_as_int_3_then_1_else_0_end  [RUN]
+[0m00:15:34  55 of 152 PASS dbt_utils_expression_is_true_silver_game_tracking_season_try_cast_substr_cast_game_id_as_string_1_4_as_int_case_when_try_cast_substr_cast_game_id_as_string_5_2_as_int_3_then_1_else_0_end  [[32mPASS[0m in 3.12s]
+[0m00:15:34  56 of 152 START test dbt_utils_expression_is_true_silver_games_game_date_is_not_null_and_year_game_date_case_when_month_game_date_3_then_1_else_0_end_season  [RUN]
+[0m00:15:37  56 of 152 PASS dbt_utils_expression_is_true_silver_games_game_date_is_not_null_and_year_game_date_case_when_month_game_date_3_then_1_else_0_end_season  [[32mPASS[0m in 2.72s]
+[0m00:15:37  57 of 152 START test dbt_utils_expression_is_true_silver_games_home_team_abbr_visitor_team_abbr  [RUN]
+[0m00:15:39  57 of 152 PASS dbt_utils_expression_is_true_silver_games_home_team_abbr_visitor_team_abbr  [[32mPASS[0m in 2.74s]
+[0m00:15:39  58 of 152 START test dbt_utils_expression_is_true_silver_player_career_successes_career_games_started_is_null_or_career_games_active_is_null_or_career_games_started_career_games_active  [RUN]
+[0m00:15:42  58 of 152 PASS dbt_utils_expression_is_true_silver_player_career_successes_career_games_started_is_null_or_career_games_active_is_null_or_career_games_started_career_games_active  [[32mPASS[0m in 2.67s]
+[0m00:15:42  59 of 152 START test dbt_utils_expression_is_true_silver_player_play_blitzing_is_null_and_player_get_off_is_null_and_time_to_pressure_is_null_and_time_to_qb_hurry_is_null  [RUN]
+[0m00:15:46  59 of 152 WARN 113444 dbt_utils_expression_is_true_silver_player_play_blitzing_is_null_and_player_get_off_is_null_and_time_to_pressure_is_null_and_time_to_qb_hurry_is_null  [[33mWARN 113444[0m in 3.37s]
+[0m00:15:46  60 of 152 START test dbt_utils_expression_is_true_silver_player_play_cushion_is_null  [RUN]
+[0m00:15:49  60 of 152 WARN 48969 dbt_utils_expression_is_true_silver_player_play_cushion_is_null  [[33mWARN 48969[0m in 3.58s]
+[0m00:15:49  61 of 152 START test dbt_utils_expression_is_true_silver_player_play_dropback_duration_is_null_and_extended_sack_allowed_is_null_and_pass_rushers_encountered_is_null_and_peak_pressure_probability_allowed_is_null_and_pressure_allowed_is_null_and_sack_allowed_is_null_and_time_to_pressure_allowed_is_null  [RUN]
+[0m00:15:52  61 of 152 PASS dbt_utils_expression_is_true_silver_player_play_dropback_duration_is_null_and_extended_sack_allowed_is_null_and_pass_rushers_encountered_is_null_and_peak_pressure_probability_allowed_is_null_and_pressure_allowed_is_null_and_sack_allowed_is_null_and_time_to_pressure_allowed_is_null  [[32mPASS[0m in 3.09s]
+[0m00:15:52  62 of 152 START test dbt_utils_expression_is_true_silver_player_play_game_clock_is_null_or_game_clock_rlike_0_9_1_2_0_5_0_9_and_try_cast_split_game_clock_0_as_int_60_try_cast_split_game_clock_1_as_int_900_  [RUN]
+[0m00:15:55  62 of 152 PASS dbt_utils_expression_is_true_silver_player_play_game_clock_is_null_or_game_clock_rlike_0_9_1_2_0_5_0_9_and_try_cast_split_game_clock_0_as_int_60_try_cast_split_game_clock_1_as_int_900_  [[32mPASS[0m in 3.06s]
+[0m00:15:55  63 of 152 START test dbt_utils_expression_is_true_silver_player_play_home_team_win_probability_added_is_null_or_visitor_team_win_probability_added_is_null_or_abs_home_team_win_probability_added_visitor_team_win_probability_added_var_thresholds_wp_tolerance_  [RUN]
+[0m00:15:58  63 of 152 PASS dbt_utils_expression_is_true_silver_player_play_home_team_win_probability_added_is_null_or_visitor_team_win_probability_added_is_null_or_abs_home_team_win_probability_added_visitor_team_win_probability_added_var_thresholds_wp_tolerance_  [[32mPASS[0m in 2.93s]
+[0m00:15:58  64 of 152 START test dbt_utils_expression_is_true_silver_player_play_in_motion_at_ball_snap_is_null  [RUN]
+[0m00:16:01  64 of 152 PASS dbt_utils_expression_is_true_silver_player_play_in_motion_at_ball_snap_is_null  [[32mPASS[0m in 2.82s]
+[0m00:16:01  65 of 152 START test dbt_utils_expression_is_true_silver_player_play_lined_up_position__lined_up_position_is_null_or_lined_up_position_rlike_A_Z0_9__  [RUN]
+[0m00:16:02  65 of 152 ERROR dbt_utils_expression_is_true_silver_player_play_lined_up_position__lined_up_position_is_null_or_lined_up_position_rlike_A_Z0_9__  [[31mERROR[0m in 0.80s]
+[0m00:16:02  66 of 152 START test dbt_utils_expression_is_true_silver_player_play_possession_team__possession_team_is_null_or_possession_team_rlike_A_Z_2_3_  [RUN]
+[0m00:16:02  66 of 152 ERROR dbt_utils_expression_is_true_silver_player_play_possession_team__possession_team_is_null_or_possession_team_rlike_A_Z_2_3_  [[31mERROR[0m in 0.56s]
+[0m00:16:02  67 of 152 START test dbt_utils_expression_is_true_silver_player_play_pre_snap_home_team_win_probability_is_null_or_pre_snap_visitor_team_win_probability_is_null_or_abs_pre_snap_home_team_win_probability_pre_snap_visitor_team_win_probability_1_var_thresholds_wp_tolerance_  [RUN]
+[0m00:16:05  67 of 152 PASS dbt_utils_expression_is_true_silver_player_play_pre_snap_home_team_win_probability_is_null_or_pre_snap_visitor_team_win_probability_is_null_or_abs_pre_snap_home_team_win_probability_pre_snap_visitor_team_win_probability_1_var_thresholds_wp_tolerance_  [[32mPASS[0m in 2.90s]
+[0m00:16:05  68 of 152 START test dbt_utils_expression_is_true_silver_player_play_team_abbr__team_abbr_rlike_A_Z_2_3_  [RUN]
+[0m00:16:06  68 of 152 ERROR dbt_utils_expression_is_true_silver_player_play_team_abbr__team_abbr_rlike_A_Z_2_3_  [[31mERROR[0m in 0.58s]
+[0m00:16:06  69 of 152 START test dbt_utils_expression_is_true_silver_player_play_yardline_side__yardline_side_is_null_or_yardline_side_rlike_A_Z_2_3_  [RUN]
+[0m00:16:07  69 of 152 ERROR dbt_utils_expression_is_true_silver_player_play_yardline_side__yardline_side_is_null_or_yardline_side_rlike_A_Z_2_3_  [[31mERROR[0m in 0.74s]
+[0m00:16:07  70 of 152 START test dbt_utils_expression_is_true_silver_players__draft_round_is_null_draft_overall_pick_is_null_and_draft_round_is_null_draft_pick_within_round_is_null_  [RUN]
+[0m00:16:09  70 of 152 PASS dbt_utils_expression_is_true_silver_players__draft_round_is_null_draft_overall_pick_is_null_and_draft_round_is_null_draft_pick_within_round_is_null_  [[32mPASS[0m in 2.76s]
+[0m00:16:09  71 of 152 START test dbt_utils_expression_is_true_silver_players_birth_date_is_null_or_draft_year_is_null_or_datediff_make_date_draft_year_4_25_birth_date_365_25_between_var_thresholds_age_at_draft_min_and_var_thresholds_age_at_draft_max_  [RUN]
+[0m00:16:12  71 of 152 PASS dbt_utils_expression_is_true_silver_players_birth_date_is_null_or_draft_year_is_null_or_datediff_make_date_draft_year_4_25_birth_date_365_25_between_var_thresholds_age_at_draft_min_and_var_thresholds_age_at_draft_max_  [[32mPASS[0m in 2.76s]
+[0m00:16:12  72 of 152 START test dbt_utils_source_expression_is_true_bronze_combine_results_bronze__rescued_data_is_null  [RUN]
+[0m00:16:16  72 of 152 PASS dbt_utils_source_expression_is_true_bronze_combine_results_bronze__rescued_data_is_null  [[32mPASS[0m in 3.59s]
+[0m00:16:16  73 of 152 START test dbt_utils_source_expression_is_true_bronze_combine_tracking_bronze__rescued_data_is_null  [RUN]
+[0m00:16:19  73 of 152 PASS dbt_utils_source_expression_is_true_bronze_combine_tracking_bronze__rescued_data_is_null  [[32mPASS[0m in 3.46s]
+[0m00:16:19  74 of 152 START test dbt_utils_source_expression_is_true_bronze_game_tracking_bronze__rescued_data_is_null  [RUN]
+[0m00:16:23  74 of 152 PASS dbt_utils_source_expression_is_true_bronze_game_tracking_bronze__rescued_data_is_null  [[32mPASS[0m in 3.48s]
+[0m00:16:23  75 of 152 START test dbt_utils_source_expression_is_true_bronze_games_bronze__rescued_data_is_null  [RUN]
+[0m00:16:26  75 of 152 PASS dbt_utils_source_expression_is_true_bronze_games_bronze__rescued_data_is_null  [[32mPASS[0m in 3.48s]
+[0m00:16:26  76 of 152 START test dbt_utils_source_expression_is_true_bronze_player_career_successes_bronze__rescued_data_is_null  [RUN]
+[0m00:16:30  76 of 152 PASS dbt_utils_source_expression_is_true_bronze_player_career_successes_bronze__rescued_data_is_null  [[32mPASS[0m in 3.39s]
+[0m00:16:30  77 of 152 START test dbt_utils_source_expression_is_true_bronze_players_bronze__resuced_data_is_null  [RUN]
+[0m00:16:33  77 of 152 PASS dbt_utils_source_expression_is_true_bronze_players_bronze__resuced_data_is_null  [[32mPASS[0m in 3.37s]
+[0m00:16:33  78 of 152 START test dbt_utils_unique_combination_of_columns_silver_combine_tracking_event_id__entity_type__time  [RUN]
+[0m00:16:36  78 of 152 PASS dbt_utils_unique_combination_of_columns_silver_combine_tracking_event_id__entity_type__time  [[32mPASS[0m in 2.95s]
+[0m00:16:36  79 of 152 START test dbt_utils_unique_combination_of_columns_silver_game_tracking_game_id__play_id__nfl_id__time  [RUN]
+[0m00:16:41  79 of 152 PASS dbt_utils_unique_combination_of_columns_silver_game_tracking_game_id__play_id__nfl_id__time  [[32mPASS[0m in 4.82s]
+[0m00:16:41  80 of 152 START test dbt_utils_unique_combination_of_columns_silver_player_play_game_id__play_id__nfl_id  [RUN]
+[0m00:16:44  80 of 152 PASS dbt_utils_unique_combination_of_columns_silver_player_play_game_id__play_id__nfl_id  [[32mPASS[0m in 3.05s]
+[0m00:16:44  81 of 152 START test fixture_game_2024122906_play_2708 ......................... [RUN]
+[0m00:16:48  81 of 152 PASS fixture_game_2024122906_play_2708 ............................... [[32mPASS[0m in 3.90s]
+[0m00:16:48  82 of 152 START test not_null_coverage_assignment_map_raw_value ................ [RUN]
+[0m00:16:51  82 of 152 PASS not_null_coverage_assignment_map_raw_value ...................... [[32mPASS[0m in 2.97s]
+[0m00:16:51  83 of 152 START test not_null_silver_combine_attempts_event_id ................. [RUN]
+[0m00:16:53  83 of 152 PASS not_null_silver_combine_attempts_event_id ....................... [[32mPASS[0m in 2.66s]
+[0m00:16:53  84 of 152 START test not_null_silver_combine_attempts_nfl_id ................... [RUN]
+[0m00:16:56  84 of 152 PASS not_null_silver_combine_attempts_nfl_id ......................... [[32mPASS[0m in 2.58s]
+[0m00:16:56  85 of 152 START test not_null_silver_combine_results_nfl_id .................... [RUN]
+[0m00:16:59  85 of 152 PASS not_null_silver_combine_results_nfl_id .......................... [[32mPASS[0m in 2.74s]
+[0m00:16:59  86 of 152 START test not_null_silver_combine_tracking_entity_type .............. [RUN]
+[0m00:17:01  86 of 152 PASS not_null_silver_combine_tracking_entity_type .................... [[32mPASS[0m in 2.45s]
+[0m00:17:01  87 of 152 START test not_null_silver_combine_tracking_event_id ................. [RUN]
+[0m00:17:04  87 of 152 PASS not_null_silver_combine_tracking_event_id ....................... [[32mPASS[0m in 2.82s]
+[0m00:17:04  88 of 152 START test not_null_silver_combine_tracking_time ..................... [RUN]
+[0m00:17:07  88 of 152 PASS not_null_silver_combine_tracking_time ........................... [[32mPASS[0m in 2.61s]
+[0m00:17:07  89 of 152 START test not_null_silver_game_tracking_game_id ..................... [RUN]
+[0m00:17:09  89 of 152 PASS not_null_silver_game_tracking_game_id ........................... [[32mPASS[0m in 2.74s]
+[0m00:17:09  90 of 152 START test not_null_silver_game_tracking_nfl_id ...................... [RUN]
+[0m00:17:12  90 of 152 PASS not_null_silver_game_tracking_nfl_id ............................ [[32mPASS[0m in 2.76s]
+[0m00:17:12  91 of 152 START test not_null_silver_game_tracking_play_id ..................... [RUN]
+[0m00:17:15  91 of 152 PASS not_null_silver_game_tracking_play_id ........................... [[32mPASS[0m in 2.57s]
+[0m00:17:15  92 of 152 START test not_null_silver_game_tracking_season ...................... [RUN]
+[0m00:17:17  92 of 152 PASS not_null_silver_game_tracking_season ............................ [[32mPASS[0m in 2.56s]
+[0m00:17:17  93 of 152 START test not_null_silver_game_tracking_time ........................ [RUN]
+[0m00:17:20  93 of 152 PASS not_null_silver_game_tracking_time .............................. [[32mPASS[0m in 2.47s]
+[0m00:17:20  94 of 152 START test not_null_silver_games_game_id ............................. [RUN]
+[0m00:17:22  94 of 152 PASS not_null_silver_games_game_id ................................... [[32mPASS[0m in 2.53s]
+[0m00:17:22  95 of 152 START test not_null_silver_games_game_key ............................ [RUN]
+[0m00:17:25  95 of 152 PASS not_null_silver_games_game_key .................................. [[32mPASS[0m in 2.66s]
+[0m00:17:25  96 of 152 START test not_null_silver_games_is_preseason ........................ [RUN]
+[0m00:17:28  96 of 152 PASS not_null_silver_games_is_preseason .............................. [[32mPASS[0m in 2.66s]
+[0m00:17:28  97 of 152 START test not_null_silver_player_career_successes_nfl_id ............ [RUN]
+[0m00:17:30  97 of 152 PASS not_null_silver_player_career_successes_nfl_id .................. [[32mPASS[0m in 2.77s]
+[0m00:17:30  98 of 152 START test not_null_silver_player_play_game_id ....................... [RUN]
+[0m00:17:34  98 of 152 PASS not_null_silver_player_play_game_id ............................. [[32mPASS[0m in 3.48s]
+[0m00:17:34  99 of 152 START test not_null_silver_player_play_nfl_id ........................ [RUN]
+[0m00:17:37  99 of 152 PASS not_null_silver_player_play_nfl_id .............................. [[32mPASS[0m in 2.95s]
+[0m00:17:37  100 of 152 START test not_null_silver_player_play_play_id ...................... [RUN]
+[0m00:17:40  100 of 152 PASS not_null_silver_player_play_play_id ............................ [[32mPASS[0m in 3.17s]
+[0m00:17:40  101 of 152 START test not_null_silver_player_play_side ......................... [RUN]
+[0m00:17:43  101 of 152 PASS not_null_silver_player_play_side ............................... [[32mPASS[0m in 3.07s]
+[0m00:17:43  102 of 152 START test not_null_silver_player_play_team_abbr .................... [RUN]
+[0m00:17:46  102 of 152 PASS not_null_silver_player_play_team_abbr .......................... [[32mPASS[0m in 2.97s]
+[0m00:17:46  103 of 152 START test not_null_silver_players_draft_year ....................... [RUN]
+[0m00:17:49  103 of 152 PASS not_null_silver_players_draft_year ............................. [[32mPASS[0m in 2.96s]
+[0m00:17:49  104 of 152 START test not_null_silver_players_nfl_id ........................... [RUN]
+[0m00:17:52  104 of 152 PASS not_null_silver_players_nfl_id ................................. [[32mPASS[0m in 2.66s]
+[0m00:17:52  105 of 152 START test o1_preseason_game_count .................................. [RUN]
+[0m00:17:54  105 of 152 PASS o1_preseason_game_count ........................................ [[32mPASS[0m in 2.76s]
+[0m00:17:54  106 of 152 START test player_play_season_matches_games ......................... [RUN]
+[0m00:17:57  106 of 152 PASS player_play_season_matches_games ............................... [[32mPASS[0m in 3.07s]
+[0m00:17:57  107 of 152 START test relationships_silver_combine_attempts_nfl_id__nfl_id__ref_silver_players_  [RUN]
+[0m00:18:00  107 of 152 PASS relationships_silver_combine_attempts_nfl_id__nfl_id__ref_silver_players_  [[32mPASS[0m in 2.97s]
+[0m00:18:00  108 of 152 START test relationships_silver_combine_results_nfl_id__nfl_id__ref_silver_players_  [RUN]
+[0m00:18:04  108 of 152 PASS relationships_silver_combine_results_nfl_id__nfl_id__ref_silver_players_  [[32mPASS[0m in 3.37s]
+[0m00:18:04  109 of 152 START test relationships_silver_combine_tracking_event_id__event_id__ref_silver_combine_attempts_  [RUN]
+[0m00:18:07  109 of 152 PASS relationships_silver_combine_tracking_event_id__event_id__ref_silver_combine_attempts_  [[32mPASS[0m in 3.28s]
+[0m00:18:07  110 of 152 START test relationships_silver_combine_tracking_nfl_id__nfl_id__ref_silver_players_  [RUN]
+[0m00:18:10  110 of 152 PASS relationships_silver_combine_tracking_nfl_id__nfl_id__ref_silver_players_  [[32mPASS[0m in 3.06s]
+[0m00:18:10  111 of 152 START test relationships_silver_game_tracking_game_id__game_id__ref_silver_games_  [RUN]
+[0m00:18:13  111 of 152 PASS relationships_silver_game_tracking_game_id__game_id__ref_silver_games_  [[32mPASS[0m in 3.18s]
+[0m00:18:13  112 of 152 START test relationships_silver_game_tracking_nfl_id__nfl_id__ref_silver_players_  [RUN]
+[0m00:18:16  112 of 152 PASS relationships_silver_game_tracking_nfl_id__nfl_id__ref_silver_players_  [[32mPASS[0m in 3.06s]
+[0m00:18:16  113 of 152 START test relationships_silver_player_career_successes_nfl_id__nfl_id__ref_silver_players_  [RUN]
+[0m00:18:19  113 of 152 PASS relationships_silver_player_career_successes_nfl_id__nfl_id__ref_silver_players_  [[32mPASS[0m in 2.86s]
+[0m00:18:19  114 of 152 START test relationships_silver_player_play_game_id__game_id__ref_silver_games_  [RUN]
+[0m00:18:22  114 of 152 PASS relationships_silver_player_play_game_id__game_id__ref_silver_games_  [[32mPASS[0m in 2.76s]
+[0m00:18:22  115 of 152 START test relationships_silver_player_play_nfl_id__nfl_id__ref_silver_players_  [RUN]
+[0m00:18:25  115 of 152 PASS relationships_silver_player_play_nfl_id__nfl_id__ref_silver_players_  [[32mPASS[0m in 3.27s]
+[0m00:18:25  116 of 152 START test row_count_matches_silver_combine_attempts_combine_attempts  [RUN]
+[0m00:18:28  116 of 152 PASS row_count_matches_silver_combine_attempts_combine_attempts ..... [[32mPASS[0m in 3.18s]
+[0m00:18:28  117 of 152 START test row_count_matches_silver_combine_results_combine_results . [RUN]
+[0m00:18:32  117 of 152 PASS row_count_matches_silver_combine_results_combine_results ....... [[32mPASS[0m in 3.06s]
+[0m00:18:32  118 of 152 START test row_count_matches_silver_games_games ..................... [RUN]
+[0m00:18:35  118 of 152 PASS row_count_matches_silver_games_games ........................... [[32mPASS[0m in 3.08s]
+[0m00:18:35  119 of 152 START test row_count_matches_silver_player_career_successes_player_career_successes  [RUN]
+[0m00:18:37  119 of 152 PASS row_count_matches_silver_player_career_successes_player_career_successes  [[32mPASS[0m in 2.75s]
+[0m00:18:37  120 of 152 START test row_count_matches_silver_player_play_player_play ......... [RUN]
+[0m00:18:40  120 of 152 WARN 1 row_count_matches_silver_player_play_player_play ............. [[33mWARN 1[0m in 2.87s]
+[0m00:18:40  121 of 152 START test row_count_matches_silver_players_players ................. [RUN]
+[0m00:18:43  121 of 152 PASS row_count_matches_silver_players_players ....................... [[32mPASS[0m in 2.63s]
+[0m00:18:43  122 of 152 START test unique_coverage_assignment_map_raw_value ................. [RUN]
+[0m00:18:46  122 of 152 PASS unique_coverage_assignment_map_raw_value ....................... [[32mPASS[0m in 2.69s]
+[0m00:18:46  123 of 152 START test unique_silver_combine_attempts_event_id .................. [RUN]
+[0m00:18:48  123 of 152 PASS unique_silver_combine_attempts_event_id ........................ [[32mPASS[0m in 2.56s]
+[0m00:18:48  124 of 152 START test unique_silver_combine_results_nfl_id ..................... [RUN]
+[0m00:18:51  124 of 152 PASS unique_silver_combine_results_nfl_id ........................... [[32mPASS[0m in 2.85s]
+[0m00:18:51  125 of 152 START test unique_silver_games_game_id .............................. [RUN]
+[0m00:18:54  125 of 152 PASS unique_silver_games_game_id .................................... [[32mPASS[0m in 2.56s]
+[0m00:18:54  126 of 152 START test unique_silver_games_game_key ............................. [RUN]
+[0m00:18:56  126 of 152 PASS unique_silver_games_game_key ................................... [[32mPASS[0m in 2.77s]
+[0m00:18:56  127 of 152 START test unique_silver_player_career_successes_nfl_id ............. [RUN]
+[0m00:18:59  127 of 152 PASS unique_silver_player_career_successes_nfl_id ................... [[32mPASS[0m in 2.85s]
+[0m00:18:59  128 of 152 START test unique_silver_players_nfl_id ............................. [RUN]
+[0m00:19:02  128 of 152 PASS unique_silver_players_nfl_id ................................... [[32mPASS[0m in 2.76s]
+[0m00:19:02  129 of 152 START test within_thresholds_silver_combine_results_arm_length__arm_length  [RUN]
+[0m00:19:05  129 of 152 PASS within_thresholds_silver_combine_results_arm_length__arm_length  [[32mPASS[0m in 2.57s]
+[0m00:19:05  130 of 152 START test within_thresholds_silver_combine_results_bench_reps__bench_reps  [RUN]
+[0m00:19:07  130 of 152 PASS within_thresholds_silver_combine_results_bench_reps__bench_reps  [[32mPASS[0m in 2.55s]
+[0m00:19:07  131 of 152 START test within_thresholds_silver_combine_results_broad_jump__broad_jump  [RUN]
+[0m00:19:10  131 of 152 PASS within_thresholds_silver_combine_results_broad_jump__broad_jump  [[32mPASS[0m in 2.65s]
+[0m00:19:10  132 of 152 START test within_thresholds_silver_combine_results_combine_height__height  [RUN]
+[0m00:19:12  132 of 152 PASS within_thresholds_silver_combine_results_combine_height__height  [[32mPASS[0m in 2.58s]
+[0m00:19:12  133 of 152 START test within_thresholds_silver_combine_results_combine_weight__weight  [RUN]
+[0m00:19:15  133 of 152 PASS within_thresholds_silver_combine_results_combine_weight__weight  [[32mPASS[0m in 2.58s]
+[0m00:19:15  134 of 152 START test within_thresholds_silver_combine_results_forty__forty .... [RUN]
+[0m00:19:18  134 of 152 PASS within_thresholds_silver_combine_results_forty__forty .......... [[32mPASS[0m in 2.72s]
+[0m00:19:18  135 of 152 START test within_thresholds_silver_combine_results_hand_size__hand_size  [RUN]
+[0m00:19:20  135 of 152 PASS within_thresholds_silver_combine_results_hand_size__hand_size .. [[32mPASS[0m in 2.77s]
+[0m00:19:20  136 of 152 START test within_thresholds_silver_combine_results_ngs_athleticism_score__ngs_score  [RUN]
+[0m00:19:23  136 of 152 PASS within_thresholds_silver_combine_results_ngs_athleticism_score__ngs_score  [[32mPASS[0m in 2.76s]
+[0m00:19:23  137 of 152 START test within_thresholds_silver_combine_results_ngs_college_production_score__ngs_score  [RUN]
+[0m00:19:26  137 of 152 PASS within_thresholds_silver_combine_results_ngs_college_production_score__ngs_score  [[32mPASS[0m in 2.55s]
+[0m00:19:26  138 of 152 START test within_thresholds_silver_combine_results_ngs_final_score__ngs_score  [RUN]
+[0m00:19:28  138 of 152 PASS within_thresholds_silver_combine_results_ngs_final_score__ngs_score  [[32mPASS[0m in 2.56s]
+[0m00:19:28  139 of 152 START test within_thresholds_silver_combine_results_short_shuttle__short_shuttle  [RUN]
+[0m00:19:31  139 of 152 PASS within_thresholds_silver_combine_results_short_shuttle__short_shuttle  [[32mPASS[0m in 2.57s]
+[0m00:19:31  140 of 152 START test within_thresholds_silver_combine_results_ten_yd_split__ten_yd_split  [RUN]
+[0m00:19:34  140 of 152 PASS within_thresholds_silver_combine_results_ten_yd_split__ten_yd_split  [[32mPASS[0m in 3.06s]
+[0m00:19:34  141 of 152 START test within_thresholds_silver_combine_results_three_cone__three_cone  [RUN]
+[0m00:19:37  141 of 152 PASS within_thresholds_silver_combine_results_three_cone__three_cone  [[32mPASS[0m in 2.95s]
+[0m00:19:37  142 of 152 START test within_thresholds_silver_combine_results_vertical__vertical  [RUN]
+[0m00:19:39  142 of 152 PASS within_thresholds_silver_combine_results_vertical__vertical .... [[32mPASS[0m in 2.56s]
+[0m00:19:39  143 of 152 START test within_thresholds_silver_combine_results_wing_span__wing_span  [RUN]
+[0m00:19:42  143 of 152 PASS within_thresholds_silver_combine_results_wing_span__wing_span .. [[32mPASS[0m in 2.46s]
+[0m00:19:42  144 of 152 START test within_thresholds_silver_combine_tracking_dir__angle ..... [RUN]
+[0m00:19:44  144 of 152 PASS within_thresholds_silver_combine_tracking_dir__angle ........... [[32mPASS[0m in 2.55s]
+[0m00:19:44  145 of 152 START test within_thresholds_silver_combine_tracking_s__speed ....... [RUN]
+[0m00:19:47  145 of 152 WARN 8478 within_thresholds_silver_combine_tracking_s__speed ........ [[33mWARN 8478[0m in 2.76s]
+[0m00:19:47  146 of 152 START test within_thresholds_silver_combine_tracking_x__field_x ..... [RUN]
+[0m00:19:50  146 of 152 PASS within_thresholds_silver_combine_tracking_x__field_x ........... [[32mPASS[0m in 2.65s]
+[0m00:19:50  147 of 152 START test within_thresholds_silver_combine_tracking_y__field_y ..... [RUN]
+[0m00:19:53  147 of 152 WARN 50334 within_thresholds_silver_combine_tracking_y__field_y ..... [[33mWARN 50334[0m in 2.77s]
+[0m00:19:53  148 of 152 START test within_thresholds_silver_game_tracking_dir__angle ........ [RUN]
+[0m00:19:55  148 of 152 PASS within_thresholds_silver_game_tracking_dir__angle .............. [[32mPASS[0m in 2.54s]
+[0m00:19:55  149 of 152 START test within_thresholds_silver_game_tracking_o__angle .......... [RUN]
+[0m00:19:58  149 of 152 PASS within_thresholds_silver_game_tracking_o__angle ................ [[32mPASS[0m in 2.66s]
+[0m00:19:58  150 of 152 START test within_thresholds_silver_game_tracking_s__speed .......... [RUN]
+[0m00:20:01  150 of 152 WARN 51 within_thresholds_silver_game_tracking_s__speed ............. [[33mWARN 51[0m in 3.07s]
+[0m00:20:01  151 of 152 START test within_thresholds_silver_game_tracking_x__field_x ........ [RUN]
+[0m00:20:04  151 of 152 WARN 4509 within_thresholds_silver_game_tracking_x__field_x ......... [[33mWARN 4509[0m in 2.97s]
+[0m00:20:04  152 of 152 START test within_thresholds_silver_game_tracking_y__field_y ........ [RUN]
+[0m00:20:07  152 of 152 WARN 79055 within_thresholds_silver_game_tracking_y__field_y ........ [[33mWARN 79055[0m in 3.28s]
+[0m00:20:07  
+[0m00:20:07  Finished running 152 data tests in 0 hours 7 minutes and 28.56 seconds (448.56s).
+[0m00:20:07  
+[0m00:20:07  [31mCompleted with 6 errors, 0 partial successes, and 12 warnings:[0m
+[0m00:20:07  
+[0m00:20:07  [31mFailure in test b8_multiple_ball_snaps (tests/singular/b8_multiple_ball_snaps.sql)[0m
+[0m00:20:07    Got 50 results, configured to fail if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/tests/singular/b8_multiple_ball_snaps.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  -------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`b8_multiple_ball_snaps`
+  -------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [31mFailure in test dbt_utils_accepted_range_silver_player_play_down__4__1 (models/silver/silver_player_play.yml)[0m
+[0m00:20:07    Got 961 results, configured to fail if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_player_play.yml/dbt_utils_accepted_range_silver_player_play_down__4__1.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  ---------------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`dbt_utils_accepted_range_silver_player_play_down__4__1`
+  ---------------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [31mFailure in test dbt_utils_expression_is_true_silver_player_play_lined_up_position__lined_up_position_is_null_or_lined_up_position_rlike_A_Z0_9__ (models/silver/silver_player_play.yml)[0m
+[0m00:20:07    Database Error in test dbt_utils_expression_is_true_silver_player_play_lined_up_position__lined_up_position_is_null_or_lined_up_position_rlike_A_Z0_9__ (models/silver/silver_player_play.yml)
+  
+  [PARSE_SYNTAX_ERROR] Syntax error at or near 'is'. SQLSTATE: 42601 (line 29, pos 46)
+  
+  == SQL ==
+  /* {"app": "dbt", "dbt_version": "1.10.16", "dbt_databricks_version": "1.10.19", "databricks_sql_connector_version": "4.0.5", "profile_name": "nfl_dbt", "target_name": "dev", "node_id": "test.nfl_dbt.dbt_utils_expression_is_true_silver_player_play_lined_up_position__lined_up_position_is_null_or_lined_up_position_rlike_A_Z0_9__.5e6601eedb"} */
+  
+          
+          
+    
+      
+          create or replace table `nfl`.`silver_test_failures`.`dbt_utils_expression_is_true_s_72646f90fde8becb2fd38fc33a934e68`
+        
+        
+    using delta
+        
+        
+        
+        
+        
+        
+        
+        as
+        
+      
+    
+  
+  
+  
+  select
+      *
+  from `nfl`.`silver`.`silver_player_play`
+  
+  where not(lined_up_position lined_up_position is null or lined_up_position rlike '^[A-Z0-9_]+$')
+  ----------------------------------------------^^^
+  
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_player_play.yml/dbt_utils_expression_is_true_s_72646f90fde8becb2fd38fc33a934e68.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  ------------------------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`dbt_utils_expression_is_true_s_72646f90fde8becb2fd38fc33a934e68`
+  ------------------------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [31mFailure in test dbt_utils_expression_is_true_silver_player_play_possession_team__possession_team_is_null_or_possession_team_rlike_A_Z_2_3_ (models/silver/silver_player_play.yml)[0m
+[0m00:20:07    Database Error in test dbt_utils_expression_is_true_silver_player_play_possession_team__possession_team_is_null_or_possession_team_rlike_A_Z_2_3_ (models/silver/silver_player_play.yml)
+  
+  [PARSE_SYNTAX_ERROR] Syntax error at or near 'is'. SQLSTATE: 42601 (line 29, pos 42)
+  
+  == SQL ==
+  /* {"app": "dbt", "dbt_version": "1.10.16", "dbt_databricks_version": "1.10.19", "databricks_sql_connector_version": "4.0.5", "profile_name": "nfl_dbt", "target_name": "dev", "node_id": "test.nfl_dbt.dbt_utils_expression_is_true_silver_player_play_possession_team__possession_team_is_null_or_possession_team_rlike_A_Z_2_3_.20006bdf96"} */
+  
+          
+          
+    
+      
+          create or replace table `nfl`.`silver_test_failures`.`dbt_utils_expression_is_true_s_397e43b17365c56410e2f16361ffae67`
+        
+        
+    using delta
+        
+        
+        
+        
+        
+        
+        
+        as
+        
+      
+    
+  
+  
+  
+  select
+      *
+  from `nfl`.`silver`.`silver_player_play`
+  
+  where not(possession_team possession_team is null or possession_team rlike '^[A-Z]{2,3}$')
+  ------------------------------------------^^^
+  
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_player_play.yml/dbt_utils_expression_is_true_s_397e43b17365c56410e2f16361ffae67.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  ------------------------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`dbt_utils_expression_is_true_s_397e43b17365c56410e2f16361ffae67`
+  ------------------------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [31mFailure in test dbt_utils_expression_is_true_silver_player_play_team_abbr__team_abbr_rlike_A_Z_2_3_ (models/silver/silver_player_play.yml)[0m
+[0m00:20:07    Database Error in test dbt_utils_expression_is_true_silver_player_play_team_abbr__team_abbr_rlike_A_Z_2_3_ (models/silver/silver_player_play.yml)
+  
+  [PARSE_SYNTAX_ERROR] Syntax error at or near 'rlike'. SQLSTATE: 42601 (line 29, pos 30)
+  
+  == SQL ==
+  /* {"app": "dbt", "dbt_version": "1.10.16", "dbt_databricks_version": "1.10.19", "databricks_sql_connector_version": "4.0.5", "profile_name": "nfl_dbt", "target_name": "dev", "node_id": "test.nfl_dbt.dbt_utils_expression_is_true_silver_player_play_team_abbr__team_abbr_rlike_A_Z_2_3_.084fcb4839"} */
+  
+          
+          
+    
+      
+          create or replace table `nfl`.`silver_test_failures`.`dbt_utils_expression_is_true_s_bc7c93961246692b96e8629e04848dd7`
+        
+        
+    using delta
+        
+        
+        
+        
+        
+        
+        
+        as
+        
+      
+    
+  
+  
+  
+  select
+      *
+  from `nfl`.`silver`.`silver_player_play`
+  
+  where not(team_abbr team_abbr rlike '^[A-Z]{2,3}$')
+  ------------------------------^^^
+  
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_player_play.yml/dbt_utils_expression_is_true_s_bc7c93961246692b96e8629e04848dd7.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  ------------------------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`dbt_utils_expression_is_true_s_bc7c93961246692b96e8629e04848dd7`
+  ------------------------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [31mFailure in test dbt_utils_expression_is_true_silver_player_play_yardline_side__yardline_side_is_null_or_yardline_side_rlike_A_Z_2_3_ (models/silver/silver_player_play.yml)[0m
+[0m00:20:07    Database Error in test dbt_utils_expression_is_true_silver_player_play_yardline_side__yardline_side_is_null_or_yardline_side_rlike_A_Z_2_3_ (models/silver/silver_player_play.yml)
+  
+  [PARSE_SYNTAX_ERROR] Syntax error at or near 'is'. SQLSTATE: 42601 (line 29, pos 38)
+  
+  == SQL ==
+  /* {"app": "dbt", "dbt_version": "1.10.16", "dbt_databricks_version": "1.10.19", "databricks_sql_connector_version": "4.0.5", "profile_name": "nfl_dbt", "target_name": "dev", "node_id": "test.nfl_dbt.dbt_utils_expression_is_true_silver_player_play_yardline_side__yardline_side_is_null_or_yardline_side_rlike_A_Z_2_3_.25bd25b42b"} */
+  
+          
+          
+    
+      
+          create or replace table `nfl`.`silver_test_failures`.`dbt_utils_expression_is_true_s_f41b956fcd4d8e4efae95551dfee0967`
+        
+        
+    using delta
+        
+        
+        
+        
+        
+        
+        
+        as
+        
+      
+    
+  
+  
+  
+  select
+      *
+  from `nfl`.`silver`.`silver_player_play`
+  
+  where not(yardline_side yardline_side is null or yardline_side rlike '^[A-Z]{2,3}$')
+  --------------------------------------^^^
+  
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_player_play.yml/dbt_utils_expression_is_true_s_f41b956fcd4d8e4efae95551dfee0967.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  ------------------------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`dbt_utils_expression_is_true_s_f41b956fcd4d8e4efae95551dfee0967`
+  ------------------------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [33mWarning in test b13_combine_speed_vs_dis (tests/singular/b13_combine_speed_vs_dis.sql)[0m
+[0m00:20:07  Got 1 result, configured to warn if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/tests/singular/b13_combine_speed_vs_dis.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  ---------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`b13_combine_speed_vs_dis`
+  ---------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [33mWarning in test b8_missing_ball_snap (tests/singular/b8_missing_ball_snap.sql)[0m
+[0m00:20:07  Got 1 result, configured to warn if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/tests/singular/b8_missing_ball_snap.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  -----------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`b8_missing_ball_snap`
+  -----------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [33mWarning in test b9_player_play_rows_vs_career_snaps (tests/singular/b9_player_play_rows_vs_career_snaps.sql)[0m
+[0m00:20:07  Got 230 results, configured to warn if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/tests/singular/b9_player_play_rows_vs_career_snaps.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  --------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`b9_player_play_rows_vs_career_snaps`
+  --------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [33mWarning in test coverage_assignment_unmapped (tests/singular/coverage_assignment_unmapped.sql)[0m
+[0m00:20:07  Got 38 results, configured to warn if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/tests/singular/coverage_assignment_unmapped.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  -------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`coverage_assignment_unmapped`
+  -------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [33mWarning in test dbt_utils_expression_is_true_silver_player_play_blitzing_is_null_and_player_get_off_is_null_and_time_to_pressure_is_null_and_time_to_qb_hurry_is_null (models/silver/silver_player_play.yml)[0m
+[0m00:20:07  Got 113444 results, configured to warn if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_player_play.yml/dbt_utils_expression_is_true_s_3dff88b927144744f145211c4006136c.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  ------------------------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`dbt_utils_expression_is_true_s_3dff88b927144744f145211c4006136c`
+  ------------------------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [33mWarning in test dbt_utils_expression_is_true_silver_player_play_cushion_is_null (models/silver/silver_player_play.yml)[0m
+[0m00:20:07  Got 48969 results, configured to warn if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_player_play.yml/dbt_utils_expression_is_true_silver_player_play_cushion_is_null.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  ------------------------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`dbt_utils_expression_is_true_silver_player_play_cushion_is_null`
+  ------------------------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [33mWarning in test row_count_matches_silver_player_play_player_play (models/silver/silver_player_play.yml)[0m
+[0m00:20:07  Got 1 result, configured to warn if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_player_play.yml/row_count_matches_silver_player_play_player_play.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  ---------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`row_count_matches_silver_player_play_player_play`
+  ---------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [33mWarning in test within_thresholds_silver_combine_tracking_s__speed (models/silver/silver_combine.yml)[0m
+[0m00:20:07  Got 8478 results, configured to warn if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_combine.yml/within_thresholds_silver_combine_tracking_s__speed.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  -----------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`within_thresholds_silver_combine_tracking_s__speed`
+  -----------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [33mWarning in test within_thresholds_silver_combine_tracking_y__field_y (models/silver/silver_combine.yml)[0m
+[0m00:20:07  Got 50334 results, configured to warn if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_combine.yml/within_thresholds_silver_combine_tracking_y__field_y.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  -------------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`within_thresholds_silver_combine_tracking_y__field_y`
+  -------------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [33mWarning in test within_thresholds_silver_game_tracking_s__speed (models/silver/silver_game_tracking.yml)[0m
+[0m00:20:07  Got 51 results, configured to warn if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_game_tracking.yml/within_thresholds_silver_game_tracking_s__speed.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  --------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`within_thresholds_silver_game_tracking_s__speed`
+  --------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [33mWarning in test within_thresholds_silver_game_tracking_x__field_x (models/silver/silver_game_tracking.yml)[0m
+[0m00:20:07  Got 4509 results, configured to warn if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_game_tracking.yml/within_thresholds_silver_game_tracking_x__field_x.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  ----------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`within_thresholds_silver_game_tracking_x__field_x`
+  ----------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  [33mWarning in test within_thresholds_silver_game_tracking_y__field_y (models/silver/silver_game_tracking.yml)[0m
+[0m00:20:07  Got 79055 results, configured to warn if != 0
+[0m00:20:07  
+[0m00:20:07    compiled code at target/compiled/nfl_dbt/models/silver/silver_game_tracking.yml/within_thresholds_silver_game_tracking_y__field_y.sql
+[0m00:20:07  
+[0m00:20:07    See test failures:
+  ----------------------------------------------------------------------------------------------
+  select * from `nfl`.`silver_test_failures`.`within_thresholds_silver_game_tracking_y__field_y`
+  ----------------------------------------------------------------------------------------------
+[0m00:20:07  
+[0m00:20:07  Done. PASS=134 WARN=12 ERROR=6 SKIP=0 NO-OP=0 TOTAL=152

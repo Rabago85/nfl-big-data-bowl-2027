@@ -4,7 +4,7 @@
 # name or the intended use of these models
 name: 'nfl_dbt'
 version: '1.0.0'
-
+config-version: 2
 # This setting configures which "profile" dbt uses for this project.
 profile: 'nfl_dbt'
 
@@ -21,6 +21,133 @@ snapshot-paths: ["snapshots"]
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
+
+# ---------------------------------------------------------------------------
+# All tunable thresholds live here (Section 5.1: "Thresholds live in dbt vars").
+# Plausibility ranges are deliberately loose; tune after profiling.
+# ---------------------------------------------------------------------------
+vars:
+  frame_interval_us: 100000          # 0.1 s at 10 Hz, in microseconds
+
+  preseason_season_types: ["PRE"]    # O1: confirm against diag_value_profiles (season_type)
+
+  event_names:                       # confirm against diag_value_profiles (event)
+    ball_snap: "ball_snap"
+    pass_forward: "pass_forward"
+    pass_arrived: "pass_arrived"
+    tackle: "tackle"
+
+  expected:                          # documented / confirmed counts from the handoff
+    games: 1002
+    players: 510
+    combine_results: 510
+    player_career_successes: 510
+    combine_attempts: 6310
+    player_play: 314197 #316338
+    preseason_games: 147
+    players_without_tracking: 13
+    irregular_game_intervals: 8      # B6 threshold (6 x 0.2 s, 2 x 0.8 s)
+
+  thresholds:
+    # combine measurements (units assumed: inches, lbs, seconds)
+    height:        {min: 60,   max: 86}
+    weight:        {min: 150,  max: 400}
+    hand_size:     {min: 7,    max: 12}
+    arm_length:    {min: 28,   max: 38}
+    wing_span:     {min: 66,   max: 92}
+    ten_yd_split:  {min: 1.4,  max: 2.4}
+    forty:         {min: 4.2,  max: 5.9}
+    vertical:      {min: 18,   max: 50}
+    broad_jump:    {min: 85,   max: 150}
+    three_cone:    {min: 6.2,  max: 9.0}
+    short_shuttle: {min: 3.7,  max: 5.4}
+    bench_reps:    {min: 0,    max: 50}
+    ngs_score:     {min: 0,    max: 100}
+    # tracking
+    # field_x:       {min: 0,    max: 120}
+    # field_y:       {min: 0,    max: 53.33}
+    field_x:       {min: -10, max: 130}
+    field_y:       {min: -10, max: 65}
+    speed:         {min: 0,    max: 14}     # yd/s cap
+    angle:         {min: 0,    max: 360}
+    # relationships
+    wp_tolerance:        0.01    # pre-snap home+visitor win prob ~ 1; wpa home+visitor ~ 0
+    speed_dis_tolerance: 0.5     # |s - dis/0.1| tolerance in yd/s (B13)
+    speed_dis_max_share: 0.02    # share of frames allowed to violate it (B13)
+    age_at_draft_min:    19
+    age_at_draft_max:    30
+    b9_min_ratio:        0.80    # player_play rows / career off+def snaps (non-preseason)
+    b9_row_excess_tolerance: 0   # rows allowed above career snaps
+
+  # Accepted-value lists. An EMPTY list disables that test until profiled.
+  accepted:
+    season_type: ["REG", "POST", "PRE"]
+    nfl_position: ["WR","CB","G","T","DT","TE","DE","OLB","SS","FS","C","NT","DB","ILB","MLB","RB","FB"]
+    lined_up_position: ["G","T","EDGE","CB","INTERIOR_LINE","WR","HIGH_SAFETY","SLOT_WR","C","SLOT_CB","TE","OLB","MLB","RB","BOX_SAFETY","FB","EXTRA_OL"]
+    drill_type: ["SKILL_DRILLS_WR","SKILL_DRILLS_DB","SKILL_DRILLS_DL","SKILL_DRILLS_OL","SKILL_DRILLS_TE","SKILL_DRILLS_LB","FORTY_YARD_DASH","THREE_CONE_DRILL","SHORT_SHUTTLE"]
+    drill_name: []
+    event: []
+
+  # Columns used by constancy tests (B2) and diagnostics
+  play_level_core:
+    - down
+    - yards_to_go
+    - quarter
+    - possession_team
+    - yardline_side
+    - yardline_number
+    - game_clock
+    - pre_snap_home_score
+    - pre_snap_visitor_score
+    - play_direction
+    - pre_snap_home_team_win_probability
+    - pre_snap_visitor_team_win_probability
+    - home_team_win_probability_added
+    - visitor_team_win_probability_added
+    - expected_points_added
+    - expected_points
+    - play_description
+  play_level_other:
+    - offense_formation
+    - receiver_alignment
+    - pass_result
+    - pass_length
+    - play_nullified_by_penalty
+    - penalty_yards
+    - pre_penalty_yards_gained
+    - yards_gained
+    - team_coverage_man_zone
+    - team_coverage_type
+  role_columns:
+    - in_motion_at_ball_snap
+    - target
+    - rec_yards
+    - rush_yards
+    - yards_after_catch
+    - fumble
+    - fumble_lost
+    - route_ran
+    - separation_at_pass_forward
+    - cushion
+    - expected_yards_after_catch
+    - dropback_duration
+    - extended_sack_allowed
+    - pass_rushers_encountered
+    - peak_pressure_probability_allowed
+    - pressure_allowed
+    - sack_allowed
+    - time_to_pressure_allowed
+    - blitzing
+    - player_get_off
+    - sack
+    - tackle
+    - assist
+    - caused_forced_fumble
+    - recovered_fumble
+    - tackle_for_loss
+    - time_to_pressure
+    - time_to_qb_hurry
+
 
 
 # Configuring models
@@ -42,5 +169,16 @@ models:
     +materialized: table
     silver:
       +schema: silver
-    # diagnostics:
-    #   +schema: silver_diag
+    diagnostics:
+      +schema: silver_diag
+
+seeds:
+  nfl_dbt:
+    +schema: silver
+    +file_format: delta
+
+# Failing rows are stored for every test (warn and error) in their own schema.
+data_tests:
+  nfl_dbt:
+    +store_failures: true
+    +schema: silver_test_failures

@@ -171,6 +171,8 @@ models:
       +schema: silver
     diagnostics:
       +schema: silver_diag
+    gold:
+      +schema: gold
 
 seeds:
   nfl_dbt:
@@ -178,7 +180,7 @@ seeds:
     +file_format: delta
 
 # Failing rows are stored for every test (warn and error) in their own schema.
-data_tests:
-  nfl_dbt:
-    +store_failures: true
-    +schema: silver_test_failures
+# data_tests:
+#   nfl_dbt:
+#     +store_failures: true
+#     +schema: silver_test_failures

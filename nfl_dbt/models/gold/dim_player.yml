@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: dim_player
+    data_tests:
+      - row_count_matches:
+          expected_key: players
+          config: {severity: warn}
+      - dbt_utils.expression_is_true:
+          expression: "draft_year is not null and draft_year in (2023, 2024, 2025)"
+          config: {severity: warn}
+      - dbt_utils.expression_is_true:
+          expression: "draft_overall_pick is null and is_undrafted"
+          config: {where: "draft_round is null", severity: warn}
+      - dbt_utils.expression_is_true:
+          expression: "draft_overall_pick is not null and not is_undrafted"
+          config: {where: "draft_round is not null", severity: warn}
+    columns:
+      - name: nfl_id
+        data_tests:
+          - not_null: {config: {severity: error}}
+          - unique: {config: {severity: error}}
+          

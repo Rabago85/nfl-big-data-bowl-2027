@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: dim_game
+    data_tests:
+      - row_count_matches:
+          expected_key: games
+          config: {severity: error, tags: [dim_game]}
+      - row_count_matches:
+          expected_key: preseason_games
+          config: {where: "is_preseason = true", severity: error, tags: [dim_game]}
+      - dbt_utils.expression_is_true:
+          expression: "home_team_abbr != visitor_team_abbr"
+          config: {severity: error, tags: [dim_game]}
+      - dbt_utils.expression_is_true:
+          expression: "is_preseason = (season_type = 'PRE')"
+          config: {severity: error, tags: [dim_game]}
+    columns:
+      - name: game_id
+        data_tests:
+          - not_null: {config: {severity: error, tags: [dim_game]}}
+          - unique: {config: {severity: error, tags: [dim_game]}}
+      - name: game_key
+        data_tests:
+          - not_null: {config: {severity: error, tags: [dim_game]}}
+          - unique: {config: {severity: error, tags: [dim_game]}}
+      - name: season
+        data_tests:
+          - not_null: {config: {severity: error, tags: [dim_game]}}
+          - dbt_utils.accepted_range: {min_value: 2023, max_value: 2025, config: {severity: error, tags: [dim_game]}}
+      - name: home_team_abbr
+        data_tests:
+          - not_null: {config: {severity: error, tags: [dim_game]}}
+      - name: visitor_team_abbr
+        data_tests:
+          - not_null: {config: {severity: error, tags: [dim_game]}}
+      - name: game_date
+        data_tests:
+          - not_null: {config: {severity: error, tags: [dim_game]}}
+      - name: is_preseason
+        data_tests:
+          - not_null: {config: {severity: error, tags: [dim_game]}}
+      - name: season_type
+        data_tests:
+          - not_null: {config: {severity: error, tags: [dim_game]}}
+          - accepted_values_var: {key: season_type, config: {severity: error, tags: [dim_game]}}
+      - name: week
+        data_tests:
+          - not_null: {config: {severity: error, tags: [dim_game]}}
+          

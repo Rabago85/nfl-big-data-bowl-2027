@@ -18,14 +18,14 @@ models:
     columns:
       - name: nfl_id
         data_tests:
-          - not_null: {config: {severity: error}, tags: [dim_player]}
-          - unique: {config: {severity: error}, tags: [dim_player]}
+          - not_null: {config: {severity: error, tags: [dim_player]}}
+          - unique: {config: {severity: error, tags: [dim_player]}}
           - relationships: {to: ref('silver_combine_results'), field: nfl_id, config: {severity: error, tags: [dim_player]}}
       - name: draft_year
         data_tests:
-          - not_null: {config: {severity: error, tags: [silver_game_tracking]}}
+          - not_null: {config: {severity: error, tags: [dim_player]}}
           - dbt_utils.accepted_range: {min_value: 2023, max_value: 2025, config: {severity: error, tags: [dim_player]}}
       - name: is_undrafted
         data_tests:
-          - not_null: {config: {severity: error}, tags: [dim_player]}
+          - not_null: {config: {severity: error, tags: [dim_player]}}
           

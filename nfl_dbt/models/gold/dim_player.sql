@@ -1,10 +1,7 @@
 with players_combine_stats_joined as (
     select
         p.*,
-        case
-            when p.draft_round is null then true
-            else false
-        end as is_undrafted,
+        draft_round is null as is_undrafted,
         c.combine_position,
         c.combine_height,
         c.combine_weight,

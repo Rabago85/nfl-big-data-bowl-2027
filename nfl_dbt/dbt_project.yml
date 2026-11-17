@@ -47,6 +47,8 @@ vars:
     preseason_games: 147
     players_without_tracking: 13
     irregular_game_intervals: 8      # B6 threshold (6 x 0.2 s, 2 x 0.8 s)
+    team_season_pairs: 96
+    teams: 32
 
   thresholds:
     # combine measurements (units assumed: inches, lbs, seconds)

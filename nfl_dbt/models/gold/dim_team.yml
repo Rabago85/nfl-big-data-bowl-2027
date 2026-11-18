@@ -14,25 +14,9 @@ models:
           arguments:
             group_by_column: season
           config: {severity: error, tags: [dim_team]}
-      - dbt_utils.expression_is_true:
-          expression: "draft_overall_pick is null and is_undrafted"
-          config: {where: "draft_round is null", severity: error, tags: [dim_player]}
-      - dbt_utils.expression_is_true:
-          expression: "draft_overall_pick is not null and not is_undrafted"
-          config: {where: "draft_round is not null", severity: error, tags: [dim_player]}
-      - dbt_utils.expression_is_true:
-          expression: "((draft_round is null) = (draft_pick_within_round is null)) and ((draft_round is null) = (draft_overall_pick is null))"
-          config: {severity: error, tags: [dim_player]}
     columns:
       - name: team_season_id
         data_tests:
-          - not_null: {config: {severity: error, tags: [dim_player]}}
-          - unique: {config: {severity: error, tags: [dim_player]}}
-      - name: draft_year
-        data_tests:
-          - not_null: {config: {severity: error, tags: [dim_player]}}
-          - dbt_utils.accepted_range: {min_value: 2023, max_value: 2025, config: {severity: error, tags: [dim_player]}}
-      - name: is_undrafted
-        data_tests:
-          - not_null: {config: {severity: error, tags: [dim_player]}}
+          - not_null: {config: {severity: error, tags: [dim_team]}}
+          - unique: {config: {severity: error, tags: [dim_team]}}
           

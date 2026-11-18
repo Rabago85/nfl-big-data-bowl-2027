@@ -1,4 +1,4 @@
-{% test assert_group_count(model, group_by_column, expected_count) %}
+{% test assert_group_count(model, group_by_column, expected_key) %}
 {%- set expected_count = var('expected')[expected_key] -%}
 
 select

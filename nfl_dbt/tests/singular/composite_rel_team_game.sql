@@ -10,7 +10,7 @@ with teams_games_joined as (
     left join {{ ref('dim_team') }} t1
     on g.season = t1.season and g.home_team_abbr = t1.team_abbr
     left join {{ ref('dim_team') }} t2
-    on g.season = t2.season and g.visitor_team_abbr = t1.team_abbr
+    on g.season = t2.season and g.visitor_team_abbr = t2.team_abbr
 )
 select
     *

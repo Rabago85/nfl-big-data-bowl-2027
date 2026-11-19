@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: fact_career_outcomes
+    data_tests:
+      - row_count_matches:
+          expected_key: players
+          config: {severity: error, tags: [fact_career_outcomes]}
+      - all_columns_non_negative:
+          arguments:
+            exclude_columns: ['nfl_id']
+          config: {severity: error, tags: [fact_career_outcomes]}
+      - dbt_utils.expression_is_true:
+          expression: "career_games_started <= career_games_active"
+          config: {severity: error, tags: [fact_career_outcomes]}
+    columns:
+      - name: nfl_id
+        data_tests:
+          - not_null: {config: {severity: error, tags: [fact_career_outcomes]}}
+          - unique: {config: {severity: error, tags: [fact_career_outcomes]}}
+          - relationships: {to: ref('dim_player'), field: nfl_id, config: {severity: error, tags: [fact_career_outcomes]}}
+      

@@ -23,4 +23,6 @@ models:
         data_tests:
           - not_null: {config: {severity: error, tags: [dim_team]}}
           - dbt_utils.accepted_range: {min_value: 2023, max_value: 2025, config: {severity: error, tags: [dim_team]}}
-          
+      - name: team_abbr
+        data_tests:
+          - not_null: {config: {severity: error, tags: [dim_team]}}          
